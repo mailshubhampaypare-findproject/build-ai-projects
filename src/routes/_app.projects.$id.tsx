@@ -15,11 +15,11 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { getProject, statusBadgeClasses } from "@/lib/projects-data";
+import { getProject, statusBadgeClasses, type Project } from "@/lib/projects-data";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_app/projects/$id")({
-  loader: ({ params }) => {
+  loader: ({ params }): { project: Project } => {
     const project = getProject(params.id);
     if (!project) throw notFound();
     return { project };
