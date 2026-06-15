@@ -228,7 +228,7 @@ function ProjectDetail() {
               <h2 className="font-semibold">About this project</h2>
               <p className="mt-3 text-sm text-muted-foreground">{project.description}</p>
               <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
-                {project.tech.map((t) => (
+                {project.tech.map((t: string) => (
                   <div key={t} className="rounded-lg border border-border bg-muted/30 p-3 text-center text-sm font-medium">{t}</div>
                 ))}
               </div>
