@@ -1,6 +1,6 @@
 {
+  "installCommand": "npm ci",
   "buildCommand": "npm run build",
-  "framework": "vite",
-  "outputDirectory": ".output",
-  "installCommand": "npm install"
+  "outputDirectory": ".vercel/output",
+  "framework": null
 }
