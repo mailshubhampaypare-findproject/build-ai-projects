@@ -62,8 +62,10 @@ function Landing() {
 function SiteHeader() {
   const router = useRouter();
   const handleSignIn = async () => {
-    await signInWithGoogle();
-    router.invalidate();
+    const { url } = await signInWithGoogle();
+    if (url) {
+      window.location.href = url;
+    }
   };
 
   return (
@@ -103,8 +105,10 @@ function SiteHeader() {
 function Hero() {
   const router = useRouter();
   const handleSignIn = async () => {
-    await signInWithGoogle();
-    router.invalidate();
+    const { url } = await signInWithGoogle();
+    if (url) {
+      window.location.href = url;
+    }
   };
 
   return (
@@ -412,8 +416,10 @@ const PLANS = [
 function Pricing() {
   const router = useRouter();
   const handleSignIn = async () => {
-    await signInWithGoogle();
-    router.invalidate();
+    const { url } = await signInWithGoogle();
+    if (url) {
+      window.location.href = url;
+    }
   };
 
   return (

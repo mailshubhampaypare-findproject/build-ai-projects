@@ -11,7 +11,7 @@ export const Route = createFileRoute("/auth/callback")({
   loader: async ({ search }) => {
     const { code, next } = search;
     if (code) {
-      const { error } = await exchangeCodeForSession({ data: code });
+      const { error } = await exchangeCodeForSession({ data: { code } });
       if (error) {
         console.error("Error exchanging code for session:", error);
         throw redirect({ to: "/" });

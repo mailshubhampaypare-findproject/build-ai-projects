@@ -14,15 +14,13 @@ export const signInWithGoogle = createServerFn({ method: "POST" }).handler(async
   });
 
   if (error) throw error;
-  if (data.url) {
-    throw redirect({ href: data.url });
-  }
+  return { url: data.url };
 });
 
 export const signOut = createServerFn({ method: "POST" }).handler(async () => {
   const supabase = createSupabaseServerClient();
   await supabase.auth.signOut();
-  throw redirect({ to: "/" });
+  return { success: true };
 });
 
 export const getUser = createServerFn({ method: "GET" }).handler(async () => {
