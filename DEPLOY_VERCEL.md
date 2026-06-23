@@ -13,7 +13,7 @@ This app is built with **TanStack Start + Nitro**, which has first-class Vercel 
    - **Install Command:** leave default
 4. Click **Deploy**.
 
-That's it. Vercel will run `NITRO_PRESET=vercel npm run build`, which tells Nitro to emit the Vercel Build Output API format into `.vercel/output/`. Vercel picks that up automatically and serves SSR via Vercel Functions + static assets via the CDN.
+That's it. Vercel will run `NITRO_PRESET=vercel npm run build`. The TanStack Start Vite build emits the Vercel Build Output API format into `.vercel/output/`, and Vercel serves SSR via Vercel Functions + static assets via the CDN.
 
 ## Environment variables
 
