@@ -20,7 +20,7 @@ export function AppHeader({ onMenuClick }: { onMenuClick: () => void }) {
 
   const handleSignOut = async () => {
     await signOut();
-    router.invalidate();
+    router.navigate({ to: "/" });
   };
 
   const userInitial =
