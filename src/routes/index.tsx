@@ -410,6 +410,12 @@ const PLANS = [
 ];
 
 function Pricing() {
+  const router = useRouter();
+  const handleSignIn = async () => {
+    await signInWithGoogle();
+    router.invalidate();
+  };
+
   return (
     <section id="pricing" className="border-t border-border bg-muted/30 px-6 py-24">
       <div className="mx-auto max-w-7xl">
