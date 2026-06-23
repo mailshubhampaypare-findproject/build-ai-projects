@@ -1,10 +1,14 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createSupabaseServerClient } from "./supabase.server";
 
-export const exchangeCodeForSession = createServerFn({ method: "POST" })
-  .validator((code: string) => code)
-  .handler(async ({ data: code }) => {
+export const exchangeCodeForSession = createServerFn({ method: "POST" }).handler(
+  async ({ data }: { data: { code: string } }) => {
+    const code = data.code;
     const supabase = createSupabaseServerClient();
-    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-    return { data, error };
-  });
+    const { data: sessionData, error } = await supabase.auth.exchangeCodeForSession(code);
+    if (error) {
+      return { data: null, error: error.message };
+    }
+    return { data: sessionData, error: null };
+  },
+);

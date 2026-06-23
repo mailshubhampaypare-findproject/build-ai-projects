@@ -2,8 +2,14 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { exchangeCodeForSession } from "@/lib/auth-callback";
 
 export const Route = createFileRoute("/auth/callback")({
+  validateSearch: (search: Record<string, unknown>) => {
+    return {
+      code: search.code as string | undefined,
+      next: search.next as string | undefined,
+    };
+  },
   loader: async ({ search }) => {
-    const { code, next } = search as { code?: string; next?: string };
+    const { code, next } = search;
     if (code) {
       const { error } = await exchangeCodeForSession({ data: code });
       if (error) {
