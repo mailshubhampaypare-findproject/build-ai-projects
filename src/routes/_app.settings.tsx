@@ -52,9 +52,24 @@ function SettingsPage() {
       </Section>
 
       <Section title="Notifications" desc="Pick what you'd like to be notified about.">
-        <SwitchRow label="Email notifications" desc="Project updates and weekly summaries." checked={emailNotif} onChange={setEmailNotif} />
-        <SwitchRow label="Product announcements" desc="New features and AI capability updates." checked={productNotif} onChange={setProductNotif} />
-        <SwitchRow label="Marketing emails" desc="Tips, offers, and partner content." checked={marketing} onChange={setMarketing} />
+        <SwitchRow
+          label="Email notifications"
+          desc="Project updates and weekly summaries."
+          checked={emailNotif}
+          onChange={setEmailNotif}
+        />
+        <SwitchRow
+          label="Product announcements"
+          desc="New features and AI capability updates."
+          checked={productNotif}
+          onChange={setProductNotif}
+        />
+        <SwitchRow
+          label="Marketing emails"
+          desc="Tips, offers, and partner content."
+          checked={marketing}
+          onChange={setMarketing}
+        />
       </Section>
 
       <Section title="Account" desc="Manage your account credentials.">
@@ -65,18 +80,33 @@ function SettingsPage() {
         <Button className="mt-5">Save changes</Button>
       </Section>
 
-      <Section title="API access" desc="Coming soon — generate API keys to integrate ProjectAI in your tools.">
+      <Section
+        title="API access"
+        desc="Coming soon — generate API keys to integrate ProjectAI in your tools."
+      >
         <div className="rounded-xl border border-dashed border-border bg-muted/30 p-6 text-center">
           <p className="text-sm font-medium">API access is coming soon</p>
-          <p className="mt-1 text-xs text-muted-foreground">Join the waitlist to get early access.</p>
-          <Button variant="outline" className="mt-4">Join waitlist</Button>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Join the waitlist to get early access.
+          </p>
+          <Button variant="outline" className="mt-4">
+            Join waitlist
+          </Button>
         </div>
       </Section>
     </div>
   );
 }
 
-function Section({ title, desc, children }: { title: string; desc?: string; children: React.ReactNode }) {
+function Section({
+  title,
+  desc,
+  children,
+}: {
+  title: string;
+  desc?: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="rounded-2xl border border-border bg-card p-6 shadow-card">
       <h3 className="font-semibold">{title}</h3>

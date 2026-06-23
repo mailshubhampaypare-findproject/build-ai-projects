@@ -30,7 +30,9 @@ export const Route = createFileRoute("/_app/projects/$id")({
   notFoundComponent: () => (
     <div className="p-12 text-center text-muted-foreground">
       Project not found.{" "}
-      <Link to="/projects" className="text-brand underline">Back to projects</Link>
+      <Link to="/projects" className="text-brand underline">
+        Back to projects
+      </Link>
     </div>
   ),
   component: ProjectDetail,
@@ -81,18 +83,26 @@ function ProjectDetail() {
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border bg-card px-6 py-4">
         <div className="flex items-center gap-3 min-w-0">
           <Button asChild variant="ghost" size="icon" className="shrink-0">
-            <Link to="/projects"><ArrowLeft className="h-4 w-4" /></Link>
+            <Link to="/projects">
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
           </Button>
           <div className="min-w-0">
-            <h1 className="truncate font-display text-xl font-semibold tracking-tight">{project.name}</h1>
+            <h1 className="truncate font-display text-xl font-semibold tracking-tight">
+              {project.name}
+            </h1>
             <p className="truncate text-xs text-muted-foreground">{project.tech.join(" · ")}</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <span className={`rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wider ${statusBadgeClasses(project.status)}`}>
+          <span
+            className={`rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wider ${statusBadgeClasses(project.status)}`}
+          >
             {project.status}
           </span>
-          <Button variant="outline" size="sm">Download .zip</Button>
+          <Button variant="outline" size="sm">
+            Download .zip
+          </Button>
         </div>
       </div>
 
@@ -125,7 +135,9 @@ function ProjectDetail() {
           <div className="grid h-full grid-cols-1 md:grid-cols-[240px_minmax(0,1fr)_280px]">
             {/* File explorer */}
             <aside className="hidden border-r border-border bg-muted/30 p-4 md:block overflow-y-auto">
-              <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Files</p>
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                Files
+              </p>
               <ul className="space-y-1">
                 {FILES.map((f) => (
                   <li key={f.name}>
@@ -151,7 +163,10 @@ function ProjectDetail() {
               <div className="flex-1 overflow-y-auto p-6">
                 <div className="mx-auto max-w-2xl space-y-5">
                   {messages.map((m, i) => (
-                    <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                    <div
+                      key={i}
+                      className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+                    >
                       <div
                         className={cn(
                           "max-w-[85%] rounded-2xl px-4 py-3 text-sm",
@@ -169,7 +184,12 @@ function ProjectDetail() {
               <div className="border-t border-border bg-card p-4">
                 <div className="mx-auto max-w-2xl">
                   <div className="relative flex items-center gap-2 rounded-2xl border border-border bg-background p-2 shadow-card focus-within:ring-2 focus-within:ring-brand/30">
-                    <Button variant="ghost" size="icon" className="rounded-full shrink-0" aria-label="Attach">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="rounded-full shrink-0"
+                      aria-label="Attach"
+                    >
                       <Paperclip className="h-4 w-4" />
                     </Button>
                     <textarea
@@ -185,7 +205,12 @@ function ProjectDetail() {
                       rows={1}
                       className="flex-1 resize-none bg-transparent px-1 py-2 text-sm outline-none placeholder:text-muted-foreground"
                     />
-                    <Button size="icon" onClick={send} aria-label="Send" className="rounded-full shrink-0">
+                    <Button
+                      size="icon"
+                      onClick={send}
+                      aria-label="Send"
+                      className="rounded-full shrink-0"
+                    >
                       <Send className="h-4 w-4" />
                     </Button>
                   </div>
@@ -198,7 +223,9 @@ function ProjectDetail() {
 
             {/* Right summary */}
             <aside className="hidden border-l border-border bg-muted/30 p-5 md:block overflow-y-auto">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Project</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                Project
+              </p>
               <h3 className="mt-2 font-semibold">{project.name}</h3>
               <p className="mt-1 text-xs text-muted-foreground">{project.category}</p>
 
@@ -210,10 +237,15 @@ function ProjectDetail() {
                 <SummaryRow label="Credits used" value="12" />
               </div>
 
-              <p className="mt-6 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Deliverables</p>
+              <p className="mt-6 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                Deliverables
+              </p>
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {["Source", "Docs", "Report", "PPT", "Q&A"].map((d) => (
-                  <span key={d} className="rounded-md border border-brand/20 bg-brand/5 px-2 py-0.5 text-[10px] font-medium text-brand">
+                  <span
+                    key={d}
+                    className="rounded-md border border-brand/20 bg-brand/5 px-2 py-0.5 text-[10px] font-medium text-brand"
+                  >
                     {d}
                   </span>
                 ))}
@@ -229,12 +261,19 @@ function ProjectDetail() {
               <p className="mt-3 text-sm text-muted-foreground">{project.description}</p>
               <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
                 {project.tech.map((t: string) => (
-                  <div key={t} className="rounded-lg border border-border bg-muted/30 p-3 text-center text-sm font-medium">{t}</div>
+                  <div
+                    key={t}
+                    className="rounded-lg border border-border bg-muted/30 p-3 text-center text-sm font-medium"
+                  >
+                    {t}
+                  </div>
                 ))}
               </div>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6 shadow-card">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Quick info</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                Quick info
+              </p>
               <div className="mt-3 space-y-3 text-sm">
                 <SummaryRow label="Difficulty" value={project.difficulty} />
                 <SummaryRow label="Category" value={project.category} />
@@ -279,9 +318,12 @@ function EmptyTab({ title, Icon }: { title: string; Icon: typeof Code2 }) {
       </div>
       <h3 className="mt-4 font-display text-xl font-semibold">{title}</h3>
       <p className="mt-2 text-sm text-muted-foreground">
-        Content for this section is generated alongside your project. Open the workspace to chat with AI and refine it.
+        Content for this section is generated alongside your project. Open the workspace to chat
+        with AI and refine it.
       </p>
-      <Button className="mt-6" variant="outline"><File className="mr-1 h-4 w-4" /> Preview file</Button>
+      <Button className="mt-6" variant="outline">
+        <File className="mr-1 h-4 w-4" /> Preview file
+      </Button>
     </div>
   );
 }

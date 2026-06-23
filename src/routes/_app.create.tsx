@@ -36,7 +36,14 @@ const FEATURE_OPTIONS = [
   "Mobile responsive",
 ];
 
-const DELIVERABLES = ["Source Code", "Documentation", "Project Report", "PPT Content", "GitHub README", "Interview Q&A"];
+const DELIVERABLES = [
+  "Source Code",
+  "Documentation",
+  "Project Report",
+  "PPT Content",
+  "GitHub README",
+  "Interview Q&A",
+];
 
 function CreatePage() {
   const navigate = useNavigate();
@@ -48,11 +55,18 @@ function CreatePage() {
   const [skill, setSkill] = useState("Intermediate");
   const [needsDb, setNeedsDb] = useState(true);
   const [users, setUsers] = useState("");
-  const [features, setFeatures] = useState<string[]>(["User authentication", "Database integration"]);
+  const [features, setFeatures] = useState<string[]>([
+    "User authentication",
+    "Database integration",
+  ]);
   const [needsAuth, setNeedsAuth] = useState(true);
   const [responsive, setResponsive] = useState(true);
   const [adminPanel, setAdminPanel] = useState(false);
-  const [deliverables, setDeliverables] = useState<string[]>(["Source Code", "Documentation", "GitHub README"]);
+  const [deliverables, setDeliverables] = useState<string[]>([
+    "Source Code",
+    "Documentation",
+    "GitHub README",
+  ]);
   const [reportLength, setReportLength] = useState("30");
   const [docLang, setDocLang] = useState("English");
   const [sampleData, setSampleData] = useState(true);
@@ -76,11 +90,17 @@ function CreatePage() {
           <span>{progress}%</span>
         </div>
         <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
-          <div className="h-full rounded-full bg-brand transition-all" style={{ width: `${progress}%` }} />
+          <div
+            className="h-full rounded-full bg-brand transition-all"
+            style={{ width: `${progress}%` }}
+          />
         </div>
         <div className="mt-3 flex justify-between text-xs">
           {(["Idea", "Requirements", "Blueprint"] as const).map((s, i) => (
-            <span key={s} className={i + 1 <= step ? "font-medium text-foreground" : "text-muted-foreground"}>
+            <span
+              key={s}
+              className={i + 1 <= step ? "font-medium text-foreground" : "text-muted-foreground"}
+            >
               {i + 1}. {s}
             </span>
           ))}
@@ -129,14 +149,24 @@ function CreatePage() {
           <Section title="Project basics">
             <FieldGrid>
               <Field label="Purpose">
-                <Input value={purpose} onChange={(e) => setPurpose(e.target.value)} placeholder="College submission, resume project, internal tool..." />
+                <Input
+                  value={purpose}
+                  onChange={(e) => setPurpose(e.target.value)}
+                  placeholder="College submission, resume project, internal tool..."
+                />
               </Field>
               <Field label="Who will use it?">
-                <Input value={users} onChange={(e) => setUsers(e.target.value)} placeholder="Students, faculty, customers..." />
+                <Input
+                  value={users}
+                  onChange={(e) => setUsers(e.target.value)}
+                  placeholder="Students, faculty, customers..."
+                />
               </Field>
               <Field label="Technology stack">
                 <Select value={stack} onValueChange={setStack}>
-                  <SelectTrigger><SelectValue placeholder="Let AI decide" /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Let AI decide" />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="react-node">React + Node.js</SelectItem>
                     <SelectItem value="next-supabase">Next.js + Supabase</SelectItem>
@@ -149,7 +179,9 @@ function CreatePage() {
               </Field>
               <Field label="Project size">
                 <Select value={size} onValueChange={setSize}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Small">Small (1-2 weeks)</SelectItem>
                     <SelectItem value="Medium">Medium (1 month)</SelectItem>
@@ -159,7 +191,9 @@ function CreatePage() {
               </Field>
               <Field label="Your skill level">
                 <Select value={skill} onValueChange={setSkill}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Beginner">Beginner</SelectItem>
                     <SelectItem value="Intermediate">Intermediate</SelectItem>
@@ -169,7 +203,9 @@ function CreatePage() {
               </Field>
               <Field label="Documentation language">
                 <Select value={docLang} onValueChange={setDocLang}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="English">English</SelectItem>
                     <SelectItem value="Hindi">Hindi</SelectItem>
@@ -182,12 +218,42 @@ function CreatePage() {
 
           <Section title="Configuration">
             <div className="space-y-4">
-              <SwitchRow label="Needs a database" desc="Add a schema and storage layer." checked={needsDb} onChange={setNeedsDb} />
-              <SwitchRow label="User authentication" desc="Sign up, login, sessions." checked={needsAuth} onChange={setNeedsAuth} />
-              <SwitchRow label="Mobile responsive" desc="Adaptive layouts for phones and tablets." checked={responsive} onChange={setResponsive} />
-              <SwitchRow label="Admin panel" desc="Management UI for admins." checked={adminPanel} onChange={setAdminPanel} />
-              <SwitchRow label="Generate sample data" desc="Seed the database with realistic data." checked={sampleData} onChange={setSampleData} />
-              <SwitchRow label="Deployment instructions" desc="Hosting and CI/CD guide." checked={deployInstructions} onChange={setDeployInstructions} />
+              <SwitchRow
+                label="Needs a database"
+                desc="Add a schema and storage layer."
+                checked={needsDb}
+                onChange={setNeedsDb}
+              />
+              <SwitchRow
+                label="User authentication"
+                desc="Sign up, login, sessions."
+                checked={needsAuth}
+                onChange={setNeedsAuth}
+              />
+              <SwitchRow
+                label="Mobile responsive"
+                desc="Adaptive layouts for phones and tablets."
+                checked={responsive}
+                onChange={setResponsive}
+              />
+              <SwitchRow
+                label="Admin panel"
+                desc="Management UI for admins."
+                checked={adminPanel}
+                onChange={setAdminPanel}
+              />
+              <SwitchRow
+                label="Generate sample data"
+                desc="Seed the database with realistic data."
+                checked={sampleData}
+                onChange={setSampleData}
+              />
+              <SwitchRow
+                label="Deployment instructions"
+                desc="Hosting and CI/CD guide."
+                checked={deployInstructions}
+                onChange={setDeployInstructions}
+              />
             </div>
           </Section>
 
@@ -221,7 +287,13 @@ function CreatePage() {
             </div>
             <div className="mt-4">
               <Field label="Report length (pages)">
-                <Input type="number" min={5} max={120} value={reportLength} onChange={(e) => setReportLength(e.target.value)} />
+                <Input
+                  type="number"
+                  min={5}
+                  max={120}
+                  value={reportLength}
+                  onChange={(e) => setReportLength(e.target.value)}
+                />
               </Field>
             </div>
           </Section>
@@ -241,11 +313,15 @@ function CreatePage() {
         <div className="rounded-2xl border border-border bg-card p-6 shadow-card">
           <div className="mb-6 flex items-start justify-between gap-4">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-widest text-brand">Blueprint ready</p>
+              <p className="font-mono text-[10px] uppercase tracking-widest text-brand">
+                Blueprint ready
+              </p>
               <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight">
                 {idea.slice(0, 60) || "Your AI Project"}
               </h2>
-              <p className="mt-1 text-sm text-muted-foreground">{purpose || "AI-generated project blueprint"}</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {purpose || "AI-generated project blueprint"}
+              </p>
             </div>
             <span className="rounded-md border border-brand/20 bg-brand/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-brand">
               {skill} · {size}
@@ -262,19 +338,33 @@ function CreatePage() {
           </div>
 
           <div className="mt-6">
-            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Features</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              Features
+            </p>
             <div className="mt-2 flex flex-wrap gap-2">
               {features.map((f) => (
-                <span key={f} className="rounded-md border border-border bg-muted/50 px-2 py-1 text-xs">{f}</span>
+                <span
+                  key={f}
+                  className="rounded-md border border-border bg-muted/50 px-2 py-1 text-xs"
+                >
+                  {f}
+                </span>
               ))}
             </div>
           </div>
 
           <div className="mt-6">
-            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Deliverables</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              Deliverables
+            </p>
             <div className="mt-2 flex flex-wrap gap-2">
               {deliverables.map((d) => (
-                <span key={d} className="rounded-md border border-brand/20 bg-brand/5 px-2 py-1 text-xs text-brand">{d}</span>
+                <span
+                  key={d}
+                  className="rounded-md border border-brand/20 bg-brand/5 px-2 py-1 text-xs text-brand"
+                >
+                  {d}
+                </span>
               ))}
             </div>
           </div>
@@ -283,7 +373,9 @@ function CreatePage() {
             <Button variant="outline" onClick={() => setStep(2)}>
               <ArrowLeft className="mr-1 h-4 w-4" /> Edit requirements
             </Button>
-            <Button onClick={() => navigate({ to: "/projects/$id", params: { id: MY_PROJECTS[1].id } })}>
+            <Button
+              onClick={() => navigate({ to: "/projects/$id", params: { id: MY_PROJECTS[1].id } })}
+            >
               <Sparkles className="mr-1 h-4 w-4" /> Generate Project
             </Button>
           </div>
@@ -357,7 +449,9 @@ function CheckRow({
 function BlueprintRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-border bg-muted/30 p-4">
-      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{label}</p>
+      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+        {label}
+      </p>
       <p className="mt-1.5 font-medium">{value}</p>
     </div>
   );

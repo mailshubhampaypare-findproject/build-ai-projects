@@ -10,12 +10,33 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
+import { signOut } from "@/lib/auth";
+import { useRouteContext } from "@tanstack/react-router";
 
 export function AppHeader({ onMenuClick }: { onMenuClick: () => void }) {
+  const { user } = useRouteContext({ from: "/_app" });
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.invalidate();
+  };
+
+  const userInitial =
+    user?.user_metadata?.full_name?.charAt(0) || user?.email?.charAt(0).toUpperCase() || "U";
+  const fullName = user?.user_metadata?.full_name || "User";
+  const email = user?.email || "";
+
   return (
     <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-border bg-background/80 px-4 backdrop-blur-md sm:px-6">
-      <Button variant="ghost" size="icon" className="lg:hidden" onClick={onMenuClick} aria-label="Open sidebar">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="lg:hidden"
+        onClick={onMenuClick}
+        aria-label="Open sidebar"
+      >
         <Menu className="h-5 w-5" />
       </Button>
       <div className="relative max-w-md flex-1">
@@ -27,21 +48,34 @@ export function AppHeader({ onMenuClick }: { onMenuClick: () => void }) {
       </div>
       <div className="flex items-center gap-1.5">
         <ThemeToggle />
-        <Button variant="ghost" size="icon" className="relative rounded-full" aria-label="Notifications">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="relative rounded-full"
+          aria-label="Notifications"
+        >
           <Bell className="h-4 w-4" />
           <span className="absolute right-2 top-2 size-1.5 rounded-full bg-brand" />
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="ml-1 grid size-9 place-items-center rounded-full bg-brand/15 text-sm font-semibold text-brand ring-1 ring-brand/20 hover:bg-brand/25">
-              JD
+            <button className="ml-1 grid size-9 place-items-center rounded-full bg-brand/15 text-sm font-semibold text-brand ring-1 ring-brand/20 hover:bg-brand/25 overflow-hidden">
+              {user?.user_metadata?.avatar_url ? (
+                <img
+                  src={user.user_metadata.avatar_url}
+                  alt={fullName}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                userInitial
+              )}
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel>
               <div className="flex flex-col">
-                <span className="text-sm font-medium">Jane Doe</span>
-                <span className="text-xs text-muted-foreground">jane@projectai.dev</span>
+                <span className="text-sm font-medium">{fullName}</span>
+                <span className="text-xs text-muted-foreground">{email}</span>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
@@ -55,9 +89,7 @@ export function AppHeader({ onMenuClick }: { onMenuClick: () => void }) {
               <Link to="/pricing">Billing</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link to="/">Sign out</Link>
-            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={handleSignOut}>Sign out</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

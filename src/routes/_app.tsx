@@ -1,9 +1,14 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { AppHeader } from "@/components/app-header";
 
 export const Route = createFileRoute("/_app")({
+  beforeLoad: ({ context }) => {
+    if (!context.user) {
+      throw redirect({ to: "/" });
+    }
+  },
   component: AppLayout,
 });
 
