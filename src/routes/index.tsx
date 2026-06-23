@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import {
   ArrowRight,
   Sparkles,
@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/brand-logo";
+import { signInWithGoogle } from "@/lib/auth";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
   Accordion,
@@ -59,27 +60,39 @@ function Landing() {
 }
 
 function SiteHeader() {
+  const router = useRouter();
+  const handleSignIn = async () => {
+    await signInWithGoogle();
+    router.invalidate();
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <div className="flex items-center gap-8">
           <BrandLogo />
           <nav className="hidden items-center gap-6 text-sm font-medium text-muted-foreground md:flex">
-            <a href="#features" className="transition-colors hover:text-foreground">Features</a>
-            <a href="#how" className="transition-colors hover:text-foreground">How it works</a>
-            <a href="#pricing" className="transition-colors hover:text-foreground">Pricing</a>
-            <a href="#faq" className="transition-colors hover:text-foreground">FAQ</a>
+            <a href="#features" className="transition-colors hover:text-foreground">
+              Features
+            </a>
+            <a href="#how" className="transition-colors hover:text-foreground">
+              How it works
+            </a>
+            <a href="#pricing" className="transition-colors hover:text-foreground">
+              Pricing
+            </a>
+            <a href="#faq" className="transition-colors hover:text-foreground">
+              FAQ
+            </a>
           </nav>
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Button asChild variant="ghost" className="hidden sm:inline-flex">
-            <Link to="/dashboard">Sign in</Link>
+          <Button variant="ghost" className="hidden sm:inline-flex" onClick={handleSignIn}>
+            Sign in
           </Button>
-          <Button asChild>
-            <Link to="/dashboard">
-              Start Building <ArrowRight className="ml-1 h-4 w-4" />
-            </Link>
+          <Button onClick={handleSignIn}>
+            Start Building <ArrowRight className="ml-1 h-4 w-4" />
           </Button>
         </div>
       </div>
@@ -88,6 +101,12 @@ function SiteHeader() {
 }
 
 function Hero() {
+  const router = useRouter();
+  const handleSignIn = async () => {
+    await signInWithGoogle();
+    router.invalidate();
+  };
+
   return (
     <section className="relative overflow-hidden px-6 pt-20 pb-24 sm:pt-28">
       <div className="absolute inset-x-0 top-0 -z-10 mx-auto h-[500px] max-w-5xl bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.14_162/0.15),transparent_70%)]" />
@@ -104,19 +123,23 @@ function Hero() {
           architecture explanations, and interview questions in minutes.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <Button asChild size="lg" className="h-12 px-6 text-base">
-            <Link to="/dashboard">
-              Start Building <ArrowRight className="ml-1.5 h-4 w-4" />
-            </Link>
+          <Button size="lg" className="h-12 px-6 text-base" onClick={handleSignIn}>
+            Start Building <ArrowRight className="ml-1.5 h-4 w-4" />
           </Button>
           <Button asChild size="lg" variant="outline" className="h-12 px-6 text-base">
             <Link to="/browse">View Demo</Link>
           </Button>
         </div>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
-          <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand" /> No coding required</span>
-          <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand" /> Source + docs + reports</span>
-          <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand" /> Free starter plan</span>
+          <span className="inline-flex items-center gap-1.5">
+            <Check className="h-3.5 w-3.5 text-brand" /> No coding required
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Check className="h-3.5 w-3.5 text-brand" /> Source + docs + reports
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Check className="h-3.5 w-3.5 text-brand" /> Free starter plan
+          </span>
         </div>
       </div>
 
@@ -137,29 +160,41 @@ function Hero() {
             </div>
             <div className="grid min-h-[420px] grid-cols-12">
               <div className="col-span-3 hidden border-r border-border bg-muted/30 p-4 md:block">
-                <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Files</p>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                  Files
+                </p>
                 <ul className="space-y-1.5 text-sm">
-                  {["README.md", "documentation/", "src/main.py", "schema.sql", "report.pdf", "slides.pptx"].map(
-                    (f, i) => (
-                      <li key={f} className={`flex items-center gap-2 rounded-md px-2 py-1.5 ${i === 0 ? "bg-card font-medium text-foreground" : "text-muted-foreground"}`}>
-                        <span className="size-1.5 rounded-full bg-brand/60" />
-                        <span className="font-mono text-xs">{f}</span>
-                      </li>
-                    ),
-                  )}
+                  {[
+                    "README.md",
+                    "documentation/",
+                    "src/main.py",
+                    "schema.sql",
+                    "report.pdf",
+                    "slides.pptx",
+                  ].map((f, i) => (
+                    <li
+                      key={f}
+                      className={`flex items-center gap-2 rounded-md px-2 py-1.5 ${i === 0 ? "bg-card font-medium text-foreground" : "text-muted-foreground"}`}
+                    >
+                      <span className="size-1.5 rounded-full bg-brand/60" />
+                      <span className="font-mono text-xs">{f}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="col-span-12 flex flex-col md:col-span-6">
                 <div className="flex-1 space-y-4 p-6">
                   <div className="flex justify-end">
                     <div className="max-w-[80%] rounded-2xl rounded-tr-sm bg-primary px-4 py-2.5 text-sm text-primary-foreground">
-                      Build a student attendance tracker with QR codes, React frontend, and admin dashboard.
+                      Build a student attendance tracker with QR codes, React frontend, and admin
+                      dashboard.
                     </div>
                   </div>
                   <div className="flex">
                     <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-border bg-card px-4 py-3 text-sm">
-                      Generating blueprint. Stack: <span className="font-medium">React + Vite + Supabase</span>.
-                      Creating <span className="font-mono text-xs text-brand">App.tsx</span>,{" "}
+                      Generating blueprint. Stack:{" "}
+                      <span className="font-medium">React + Vite + Supabase</span>. Creating{" "}
+                      <span className="font-mono text-xs text-brand">App.tsx</span>,{" "}
                       <span className="font-mono text-xs text-brand">schema.sql</span> and{" "}
                       <span className="font-mono text-xs text-brand">README.md</span>...
                     </div>
@@ -177,7 +212,9 @@ function Hero() {
                 </div>
               </div>
               <div className="col-span-3 hidden border-l border-border bg-muted/30 p-4 lg:block">
-                <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Summary</p>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                  Summary
+                </p>
                 <div className="space-y-3 text-sm">
                   <div>
                     <p className="text-[10px] uppercase text-muted-foreground">Stack</p>
@@ -191,7 +228,10 @@ function Hero() {
                   </div>
                   <div className="flex flex-wrap gap-1 pt-2">
                     {["Code", "Docs", "PPT", "Report", "Q&A"].map((t) => (
-                      <span key={t} className="rounded-md border border-brand/20 bg-brand/5 px-2 py-0.5 text-[10px] font-medium text-brand">
+                      <span
+                        key={t}
+                        className="rounded-md border border-brand/20 bg-brand/5 px-2 py-0.5 text-[10px] font-medium text-brand"
+                      >
                         {t}
                       </span>
                     ))}
@@ -207,15 +247,51 @@ function Hero() {
 }
 
 const FEATURES = [
-  { icon: Sparkles, title: "AI Project Builder", desc: "From a single sentence to a complete, structured project." },
-  { icon: Code2, title: "Source Code Generation", desc: "Production-ready code in Python, JS, Java and more." },
-  { icon: BookOpen, title: "Documentation Generator", desc: "Architecture, API docs, and setup guides." },
-  { icon: FileText, title: "Project Report Generator", desc: "IEEE-style reports formatted for submission." },
-  { icon: Presentation, title: "PPT Content Generator", desc: "Slides and speaker notes for vivas and demos." },
-  { icon: HelpCircle, title: "Interview Questions", desc: "Custom Q&A tailored to your project code." },
-  { icon: Github, title: "GitHub README Generator", desc: "Beautiful, well-structured READMEs in one click." },
-  { icon: MessageSquare, title: "AI Modification Chat", desc: "Refactor or add features through a simple chat." },
-  { icon: Library, title: "Project Templates Library", desc: "Curated marketplace of ready-to-build projects." },
+  {
+    icon: Sparkles,
+    title: "AI Project Builder",
+    desc: "From a single sentence to a complete, structured project.",
+  },
+  {
+    icon: Code2,
+    title: "Source Code Generation",
+    desc: "Production-ready code in Python, JS, Java and more.",
+  },
+  {
+    icon: BookOpen,
+    title: "Documentation Generator",
+    desc: "Architecture, API docs, and setup guides.",
+  },
+  {
+    icon: FileText,
+    title: "Project Report Generator",
+    desc: "IEEE-style reports formatted for submission.",
+  },
+  {
+    icon: Presentation,
+    title: "PPT Content Generator",
+    desc: "Slides and speaker notes for vivas and demos.",
+  },
+  {
+    icon: HelpCircle,
+    title: "Interview Questions",
+    desc: "Custom Q&A tailored to your project code.",
+  },
+  {
+    icon: Github,
+    title: "GitHub README Generator",
+    desc: "Beautiful, well-structured READMEs in one click.",
+  },
+  {
+    icon: MessageSquare,
+    title: "AI Modification Chat",
+    desc: "Refactor or add features through a simple chat.",
+  },
+  {
+    icon: Library,
+    title: "Project Templates Library",
+    desc: "Curated marketplace of ready-to-build projects.",
+  },
 ];
 
 function Features() {
@@ -251,7 +327,11 @@ function Features() {
 }
 
 const STEPS = [
-  { n: "01", t: "Describe your project idea", d: "Tell us in plain English what you want to build." },
+  {
+    n: "01",
+    t: "Describe your project idea",
+    d: "Tell us in plain English what you want to build.",
+  },
   { n: "02", t: "Answer AI requirement questions", d: "A short guided questionnaire — no jargon." },
   { n: "03", t: "Review project blueprint", d: "Confirm stack, features, and deliverables." },
   { n: "04", t: "Generate project", d: "AI writes code, docs, reports, and slides." },
@@ -270,7 +350,9 @@ function HowItWorks() {
               From idea to deployment in six steps
             </h2>
           </div>
-          <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">~15 min</p>
+          <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+            ~15 min
+          </p>
         </div>
         <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {STEPS.map((s) => (
@@ -293,7 +375,12 @@ const PLANS = [
     cadence: "free forever",
     desc: "Try ProjectAI for your first project.",
     cta: "Get Started",
-    features: ["1 project / month", "Source code + README", "Basic documentation", "Community support"],
+    features: [
+      "1 project / month",
+      "Source code + README",
+      "Basic documentation",
+      "Community support",
+    ],
     popular: false,
   },
   {
@@ -348,15 +435,17 @@ function Pricing() {
               <h3 className="font-semibold">{p.name}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{p.desc}</p>
               <div className="mt-6 flex items-baseline gap-1">
-                <span className="font-display text-4xl font-semibold tracking-tight">{p.price}</span>
+                <span className="font-display text-4xl font-semibold tracking-tight">
+                  {p.price}
+                </span>
                 <span className="text-sm text-muted-foreground">/ {p.cadence}</span>
               </div>
               <Button
-                asChild
                 className="mt-6 w-full"
                 variant={p.popular ? "default" : "outline"}
+                onClick={handleSignIn}
               >
-                <Link to="/dashboard">{p.cta}</Link>
+                {p.cta}
               </Button>
               <ul className="mt-8 space-y-3">
                 {p.features.map((f) => (
@@ -414,7 +503,9 @@ function FAQ() {
               value={`item-${i}`}
               className="rounded-xl border border-border bg-card px-5 shadow-card"
             >
-              <AccordionTrigger className="text-left font-medium hover:no-underline">{f.q}</AccordionTrigger>
+              <AccordionTrigger className="text-left font-medium hover:no-underline">
+                {f.q}
+              </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
             </AccordionItem>
           ))}
@@ -435,14 +526,23 @@ function SiteFooter() {
           </p>
         </div>
         <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm font-medium text-muted-foreground">
-          <a href="#features" className="hover:text-foreground">Features</a>
-          <a href="#pricing" className="hover:text-foreground">Pricing</a>
-          <a href="#faq" className="hover:text-foreground">FAQ</a>
-          <Link to="/dashboard" className="hover:text-foreground">Dashboard</Link>
+          <a href="#features" className="hover:text-foreground">
+            Features
+          </a>
+          <a href="#pricing" className="hover:text-foreground">
+            Pricing
+          </a>
+          <a href="#faq" className="hover:text-foreground">
+            FAQ
+          </a>
+          <Link to="/dashboard" className="hover:text-foreground">
+            Dashboard
+          </Link>
         </div>
       </div>
       <div className="mx-auto mt-10 max-w-7xl border-t border-border pt-6 text-xs text-muted-foreground">
-        © {new Date().getFullYear()} ProjectAI. Built for students <GraduationCap className="inline h-3.5 w-3.5" /> and pros.
+        © {new Date().getFullYear()} ProjectAI. Built for students{" "}
+        <GraduationCap className="inline h-3.5 w-3.5" /> and pros.
       </div>
     </footer>
   );

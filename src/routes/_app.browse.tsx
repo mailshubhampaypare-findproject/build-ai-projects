@@ -96,7 +96,10 @@ function Browse() {
                 <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{p.description}</p>
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {p.tech.map((t) => (
-                    <span key={t} className="rounded-md border border-border bg-muted/50 px-2 py-0.5 text-[10px] font-medium">
+                    <span
+                      key={t}
+                      className="rounded-md border border-border bg-muted/50 px-2 py-0.5 text-[10px] font-medium"
+                    >
                       {t}
                     </span>
                   ))}

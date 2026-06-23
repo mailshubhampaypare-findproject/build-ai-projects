@@ -23,13 +23,7 @@ const NAV = [
   { to: "/settings", label: "Settings", icon: Settings },
 ] as const;
 
-export function AppSidebar({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
+export function AppSidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
@@ -62,9 +56,7 @@ export function AppSidebar({
         <nav className="flex-1 space-y-1 p-3">
           {NAV.map((item) => {
             const active =
-              item.to === "/dashboard"
-                ? pathname === "/dashboard"
-                : pathname.startsWith(item.to);
+              item.to === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(item.to);
             return (
               <Link
                 key={item.to}

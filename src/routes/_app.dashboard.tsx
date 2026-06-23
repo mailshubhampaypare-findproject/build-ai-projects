@@ -19,7 +19,12 @@ export const Route = createFileRoute("/_app/dashboard")({
 
 const STATS = [
   { label: "Total Projects", value: "14", icon: FolderOpen, tone: "text-foreground" },
-  { label: "Active Projects", value: "03", icon: PlayCircle, tone: "text-amber-600 dark:text-amber-400" },
+  {
+    label: "Active Projects",
+    value: "03",
+    icon: PlayCircle,
+    tone: "text-amber-600 dark:text-amber-400",
+  },
   { label: "Downloaded", value: "08", icon: Download, tone: "text-brand" },
   { label: "Credits Remaining", value: "38", icon: Coins, tone: "text-foreground" },
 ];
@@ -42,7 +47,9 @@ function Dashboard() {
               <p className="text-sm font-medium text-muted-foreground">{s.label}</p>
               <s.icon className="h-4 w-4 text-muted-foreground" />
             </div>
-            <p className={`mt-3 font-display text-3xl font-semibold tracking-tight ${s.tone}`}>{s.value}</p>
+            <p className={`mt-3 font-display text-3xl font-semibold tracking-tight ${s.tone}`}>
+              {s.value}
+            </p>
           </div>
         ))}
       </div>
@@ -97,7 +104,9 @@ function Dashboard() {
                       </p>
                     </div>
                   </div>
-                  <span className={`shrink-0 rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${statusBadgeClasses(p.status)}`}>
+                  <span
+                    className={`shrink-0 rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${statusBadgeClasses(p.status)}`}
+                  >
                     {p.status}
                   </span>
                 </Link>
@@ -150,13 +159,16 @@ function QuickAction({
         primary ? "border-brand/30 bg-brand/5" : "border-border bg-card"
       }`}
     >
-      <div className={`grid size-10 place-items-center rounded-lg ${primary ? "bg-brand text-brand-foreground" : "bg-muted text-foreground"}`}>
+      <div
+        className={`grid size-10 place-items-center rounded-lg ${primary ? "bg-brand text-brand-foreground" : "bg-muted text-foreground"}`}
+      >
         <Icon className="h-5 w-5" />
       </div>
       <p className="mt-4 font-semibold">{title}</p>
       <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
       <div className="mt-4 inline-flex items-center text-sm font-medium text-brand">
-        Continue <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+        Continue{" "}
+        <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
       </div>
     </Link>
   );

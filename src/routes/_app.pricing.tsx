@@ -13,7 +13,12 @@ const PLANS = [
     price: "$0",
     cadence: "free forever",
     desc: "Try ProjectAI for your first project.",
-    features: ["1 project / month", "Source code + README", "Basic documentation", "Community support"],
+    features: [
+      "1 project / month",
+      "Source code + README",
+      "Basic documentation",
+      "Community support",
+    ],
     popular: false,
     cta: "Current plan",
   },

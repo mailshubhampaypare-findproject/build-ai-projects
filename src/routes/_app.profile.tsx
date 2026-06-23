@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_app/profile")({
@@ -7,25 +7,49 @@ export const Route = createFileRoute("/_app/profile")({
 });
 
 function Profile() {
+  const { user } = useRouteContext({ from: "/_app/profile" });
+
+  const userInitial =
+    user?.user_metadata?.full_name?.charAt(0) || user?.email?.charAt(0).toUpperCase() || "U";
+  const fullName = user?.user_metadata?.full_name || "User";
+  const email = user?.email || "";
+  const joinedDate = user?.created_at
+    ? new Date(user.created_at).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "Unknown";
+
   return (
     <div className="mx-auto max-w-5xl space-y-8 p-6 sm:p-8">
       <h1 className="font-display text-3xl font-semibold tracking-tight">Profile</h1>
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-1 rounded-2xl border border-border bg-card p-6 shadow-card text-center">
-          <div className="mx-auto grid size-20 place-items-center rounded-full bg-brand/15 text-brand font-display text-2xl font-semibold ring-1 ring-brand/20">
-            JD
+          <div className="mx-auto grid size-20 place-items-center rounded-full bg-brand/15 text-brand font-display text-2xl font-semibold ring-1 ring-brand/20 overflow-hidden">
+            {user?.user_metadata?.avatar_url ? (
+              <img
+                src={user.user_metadata.avatar_url}
+                alt={fullName}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              userInitial
+            )}
           </div>
-          <h2 className="mt-4 font-semibold">Jane Doe</h2>
-          <p className="text-sm text-muted-foreground">jane@projectai.dev</p>
-          <Button className="mt-5 w-full" variant="outline">Edit profile</Button>
+          <h2 className="mt-4 font-semibold">{fullName}</h2>
+          <p className="text-sm text-muted-foreground">{email}</p>
+          <Button className="mt-5 w-full" variant="outline">
+            Edit profile
+          </Button>
         </div>
 
         <div className="lg:col-span-2 space-y-6">
           <Card title="Account details">
-            <Row label="Name" value="Jane Doe" />
-            <Row label="Email" value="jane@projectai.dev" />
-            <Row label="Joined" value="January 12, 2026" />
+            <Row label="Name" value={fullName} />
+            <Row label="Email" value={email} />
+            <Row label="Joined" value={joinedDate} />
           </Card>
 
           <Card title="Subscription">

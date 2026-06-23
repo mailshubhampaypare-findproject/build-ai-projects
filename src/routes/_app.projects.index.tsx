@@ -19,7 +19,9 @@ function MyProjects() {
           </p>
         </div>
         <Button asChild>
-          <Link to="/create"><Plus className="mr-1 h-4 w-4" /> New Project</Link>
+          <Link to="/create">
+            <Plus className="mr-1 h-4 w-4" /> New Project
+          </Link>
         </Button>
       </div>
 
@@ -31,10 +33,16 @@ function MyProjects() {
           >
             <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
               <div className="min-w-0">
-                <h3 className="truncate font-semibold group-hover:text-brand transition-colors">{p.name}</h3>
-                <p className="mt-0.5 truncate text-xs text-muted-foreground">{p.tech.join(" · ")}</p>
+                <h3 className="truncate font-semibold group-hover:text-brand transition-colors">
+                  {p.name}
+                </h3>
+                <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                  {p.tech.join(" · ")}
+                </p>
               </div>
-              <span className={`shrink-0 rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${statusBadgeClasses(p.status)}`}>
+              <span
+                className={`shrink-0 rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${statusBadgeClasses(p.status)}`}
+              >
                 {p.status}
               </span>
             </div>
@@ -53,7 +61,9 @@ function MyProjects() {
             <div className="mt-5 flex items-center justify-between">
               <span className="text-xs text-muted-foreground">Updated {p.updatedAt}</span>
               <Button asChild size="sm" variant="outline">
-                <Link to="/projects/$id" params={{ id: p.id }}>Open</Link>
+                <Link to="/projects/$id" params={{ id: p.id }}>
+                  Open
+                </Link>
               </Button>
             </div>
           </article>

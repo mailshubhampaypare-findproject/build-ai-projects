@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import type { RouterContext } from "../router";
+import { getUser } from "../lib/auth";
 
 function NotFoundComponent() {
   return (
@@ -72,7 +74,11 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRouteWithContext<RouterContext>()({
+  beforeLoad: async () => {
+    const user = await getUser();
+    return { user };
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
