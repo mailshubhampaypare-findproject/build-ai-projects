@@ -24,7 +24,16 @@ export const signOut = createServerFn({ method: "POST" }).handler(async () => {
 });
 
 export const getUser = createServerFn({ method: "GET" }).handler(async () => {
-  const supabase = createSupabaseServerClient();
-  const { data } = await supabase.auth.getUser();
-  return data?.user ?? null;
+  try {
+    const supabase = createSupabaseServerClient();
+    const { data, error } = await supabase.auth.getUser();
+    if (error) {
+      console.warn("Supabase getUser error:", error.message);
+      return null;
+    }
+    return data?.user ?? null;
+  } catch (error) {
+    console.error("Unexpected error in getUser server function:", error);
+    return null;
+  }
 });
