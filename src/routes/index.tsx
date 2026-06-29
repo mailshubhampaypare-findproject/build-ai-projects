@@ -553,8 +553,7 @@ function SiteFooter() {
         </div>
       </div>
       <div className="mx-auto mt-10 max-w-7xl border-t border-border pt-6 text-xs text-muted-foreground">
-        © {new Date().getFullYear()} ProjectAI. Built for students{" "}
-        <GraduationCap className="inline h-3.5 w-3.5" /> and pros.
+        © 2022 Eduprojects solution | All rights reserved
       </div>
     </footer>
   );
