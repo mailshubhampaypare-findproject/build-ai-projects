@@ -90,11 +90,8 @@ function SiteHeader() {
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Button variant="ghost" className="hidden sm:inline-flex" onClick={handleSignIn}>
-            Sign in
-          </Button>
           <Button onClick={handleSignIn}>
-            Start Building <ArrowRight className="ml-1 h-4 w-4" />
+            Login <ArrowRight className="ml-1 h-4 w-4" />
           </Button>
         </div>
       </div>
