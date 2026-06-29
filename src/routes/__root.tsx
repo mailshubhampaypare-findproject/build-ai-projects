@@ -77,6 +77,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 export const Route = createRootRouteWithContext<RouterContext>()({
   beforeLoad: async () => {
     const user = await getUser();
+    console.log("Root beforeLoad - User:", user?.email ?? "null");
     return { user };
   },
   head: () => ({
