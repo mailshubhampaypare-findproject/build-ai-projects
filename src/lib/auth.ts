@@ -25,8 +25,6 @@ export const signOut = createServerFn({ method: "POST" }).handler(async () => {
 
 export const getUser = createServerFn({ method: "GET" }).handler(async () => {
   const supabase = createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return user;
+  const { data } = await supabase.auth.getUser();
+  return data?.user ?? null;
 });

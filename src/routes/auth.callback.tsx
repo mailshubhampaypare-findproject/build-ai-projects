@@ -11,11 +11,13 @@ export const Route = createFileRoute("/auth/callback")({
   loader: async ({ search }) => {
     const { code, next } = search;
     if (code) {
-      const { error } = await exchangeCodeForSession({ data: { code } });
-      if (error) {
-        console.error("Error exchanging code for session:", error);
+      const result = await exchangeCodeForSession({ data: { code } });
+      if (result.error) {
+        console.error("Error exchanging code for session:", result.error);
         throw redirect({ to: "/" });
       }
+    } else {
+      console.warn("No code found in auth callback");
     }
     throw redirect({ to: next || "/dashboard" });
   },
