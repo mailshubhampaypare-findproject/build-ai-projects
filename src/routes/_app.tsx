@@ -6,7 +6,7 @@ import { AppHeader } from "@/components/app-header";
 export const Route = createFileRoute("/_app")({
   beforeLoad: ({ context }) => {
     if (!context.user) {
-      throw redirect({ to: "/" });
+      throw redirect({ to: "/auth", search: { type: "login" } });
     }
   },
   component: AppLayout,

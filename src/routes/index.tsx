@@ -60,14 +60,6 @@ function Landing() {
 }
 
 function SiteHeader() {
-  const router = useRouter();
-  const handleSignIn = async () => {
-    const { url } = await signInWithGoogle();
-    if (url) {
-      window.location.href = url;
-    }
-  };
-
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
@@ -90,11 +82,15 @@ function SiteHeader() {
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Button variant="ghost" className="hidden sm:inline-flex" onClick={handleSignIn}>
-            Sign in
+          <Button variant="ghost" className="hidden sm:inline-flex" asChild>
+            <Link to="/auth" search={{ type: "login" }}>
+              Sign in
+            </Link>
           </Button>
-          <Button onClick={handleSignIn}>
-            Start Building <ArrowRight className="ml-1 h-4 w-4" />
+          <Button asChild>
+            <Link to="/auth" search={{ type: "signup" }}>
+              Start Building <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
           </Button>
         </div>
       </div>
@@ -103,14 +99,6 @@ function SiteHeader() {
 }
 
 function Hero() {
-  const router = useRouter();
-  const handleSignIn = async () => {
-    const { url } = await signInWithGoogle();
-    if (url) {
-      window.location.href = url;
-    }
-  };
-
   return (
     <section className="relative overflow-hidden px-6 pt-20 pb-24 sm:pt-28">
       <div className="absolute inset-x-0 top-0 -z-10 mx-auto h-[500px] max-w-5xl bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.14_162/0.15),transparent_70%)]" />
@@ -127,8 +115,10 @@ function Hero() {
           architecture explanations, and interview questions in minutes.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <Button size="lg" className="h-12 px-6 text-base" onClick={handleSignIn}>
-            Start Building <ArrowRight className="ml-1.5 h-4 w-4" />
+          <Button size="lg" className="h-12 px-6 text-base" asChild>
+            <Link to="/auth" search={{ type: "signup" }}>
+              Start Building <ArrowRight className="ml-1.5 h-4 w-4" />
+            </Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="h-12 px-6 text-base">
             <Link to="/browse">View Demo</Link>
@@ -414,14 +404,6 @@ const PLANS = [
 ];
 
 function Pricing() {
-  const router = useRouter();
-  const handleSignIn = async () => {
-    const { url } = await signInWithGoogle();
-    if (url) {
-      window.location.href = url;
-    }
-  };
-
   return (
     <section id="pricing" className="border-t border-border bg-muted/30 px-6 py-24">
       <div className="mx-auto max-w-7xl">
@@ -455,9 +437,11 @@ function Pricing() {
               <Button
                 className="mt-6 w-full"
                 variant={p.popular ? "default" : "outline"}
-                onClick={handleSignIn}
+                asChild
               >
-                {p.cta}
+                <Link to="/auth" search={{ type: "signup" }}>
+                  {p.cta}
+                </Link>
               </Button>
               <ul className="mt-8 space-y-3">
                 {p.features.map((f) => (
