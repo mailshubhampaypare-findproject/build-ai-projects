@@ -1,8 +1,9 @@
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import { getRequest, setCookie } from "@tanstack/react-start/server";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL!;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.SUPABASE_URL ?? import.meta.env.VITE_SUPABASE_URL!;
+const supabaseAnonKey =
+  process.env.SUPABASE_PUBLISHABLE_KEY ?? import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY!;
 
 export function createSupabaseServerClient() {
   return createServerClient(supabaseUrl, supabaseAnonKey, {
