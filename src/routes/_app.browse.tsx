@@ -4,7 +4,6 @@ import { Download, Eye, Search, SlidersHorizontal, Star, TrendingUp, Clock, Zap,
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  CATEGORIES,
   DEPARTMENTS,
   LANGUAGES,
   DIFFICULTIES,
@@ -13,6 +12,8 @@ import {
 } from "@/lib/projects-data";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_app/browse")({
   head: () => ({ meta: [{ title: "Browse Projects — ProjectAI" }] }),
@@ -31,8 +32,49 @@ function Browse() {
   const [page, setPage] = useState(1);
   const ITEMS_PER_PAGE = 6;
 
+  const { data: dbProjects } = useQuery({
+    queryKey: ["projects", "public"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("projects")
+        .select(`
+          *,
+          categories(name),
+          departments(name)
+        `)
+        .eq("status", "Published");
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const { data: categories } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => (await supabase.from("categories").select("*")).data,
+  });
+
+  const allProjects = useMemo(() => {
+    const dbMapped: Project[] = (dbProjects || []).map(p => ({
+      id: p.id,
+      name: p.name,
+      description: p.description || "",
+      tech: [], // Should fetch from project_technologies
+      category: p.categories?.name || "Uncategorized",
+      difficulty: (p.difficulty as any) || "Intermediate",
+      status: "Completed",
+      updatedAt: p.updated_at,
+      progress: 100,
+      thumbnail: p.thumbnail_url,
+      downloads: p.downloads || 0,
+      rating: Number(p.rating) || 4.5,
+      department: p.departments?.name,
+      language: p.language || "",
+    }));
+    return [...TEMPLATE_PROJECTS, ...dbMapped];
+  }, [dbProjects]);
+
   const filtered = useMemo(() => {
-    let result = TEMPLATE_PROJECTS.filter((p) => {
+    let result = allProjects.filter((p) => {
       const matchesCat = cat === "All" || p.category === cat;
       const matchesDept = dept === "All" || p.department === dept;
       const matchesLang = lang === "All" || p.language === lang;
@@ -153,8 +195,9 @@ function Browse() {
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
-                {CATEGORIES.map(c => (
-                  <SelectItem key={c} value={c}>{c}</SelectItem>
+                <SelectItem value="All">All Categories</SelectItem>
+                {categories?.map(c => (
+                  <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>
                 ))}
               </SelectContent>
             </Select>

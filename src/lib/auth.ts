@@ -26,12 +26,24 @@ export const signOut = createServerFn({ method: "POST" }).handler(async () => {
 export const getUser = createServerFn({ method: "GET" }).handler(async () => {
   try {
     const supabase = createSupabaseServerClient();
-    const { data, error } = await supabase.auth.getUser();
-    if (error) {
-      console.warn("Supabase getUser error:", error.message);
+    const { data: authData, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !authData?.user) {
+      if (authError) console.warn("Supabase getUser error:", authError.message);
       return null;
     }
-    return data?.user ?? null;
+
+    // Fetch profile role
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", authData.user.id)
+      .single();
+
+    return {
+      ...authData.user,
+      role: profile?.role ?? "user",
+    };
   } catch (error) {
     console.error("Unexpected error in getUser server function:", error);
     return null;
