@@ -89,7 +89,7 @@ export async function getUsers() {
   return data;
 }
 
-export async function updateUserRole(id: string, role: "user" | "admin") {
+export async function updateUserRole(id: string, role: "user" | "cms") {
   const { error } = await supabase.from("profiles").update({ role }).eq("id", id);
   if (error) throw error;
 }

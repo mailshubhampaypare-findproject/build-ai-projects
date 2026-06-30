@@ -26,7 +26,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/admin/users")({
+export const Route = createFileRoute("/cms/users")({
   component: UsersManagementPage,
 });
 
@@ -35,7 +35,7 @@ function UsersManagementPage() {
   const [search, setSearch] = useState("");
 
   const { data: users, isLoading } = useQuery({
-    queryKey: ["admin", "users"],
+    queryKey: ["cms", "users"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("profiles")
@@ -55,7 +55,7 @@ function UsersManagementPage() {
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin", "users"] });
+      queryClient.invalidateQueries({ queryKey: ["cms", "users"] });
       toast.success("User role updated successfully");
     },
     onError: (error) => toast.error(`Error: ${error.message}`),
@@ -119,7 +119,7 @@ function UsersManagementPage() {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    {user.role === "admin" ? (
+                    {user.role === "cms" ? (
                       <Shield className="h-3.5 w-3.5 text-brand" />
                     ) : (
                       <Users className="h-3.5 w-3.5 text-muted-foreground" />
@@ -150,11 +150,11 @@ function UsersManagementPage() {
                         className="gap-2"
                         onClick={() => updateRoleMutation.mutate({
                           id: user.id,
-                          role: user.role === "admin" ? "user" : "admin"
+                          role: user.role === "cms" ? "user" : "cms"
                         })}
                       >
                         <ShieldAlert className="h-4 w-4" />
-                        {user.role === "admin" ? "Demote to User" : "Promote to Admin"}
+                        {user.role === "cms" ? "Demote to User" : "Promote to CMS"}
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem className="gap-2 text-destructive focus:text-destructive">

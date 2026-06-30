@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ProjectForm } from "@/components/admin/project-form";
+import { ProjectForm } from "@/components/cms/project-form";
 
-export const Route = createFileRoute("/admin/projects/$id")({
+export const Route = createFileRoute("/cms/projects/$id")({
   component: EditProjectPage,
 });
 
@@ -13,7 +13,7 @@ function EditProjectPage() {
   const queryClient = useQueryClient();
 
   const { data: project, isLoading } = useQuery({
-    queryKey: ["admin", "project", id],
+    queryKey: ["cms", "project", id],
     queryFn: async () => {
       const [p, f, m, s] = await Promise.all([
         supabase.from("projects").select("*").eq("id", id).single(),
@@ -72,7 +72,7 @@ function EditProjectPage() {
     },
     onSuccess: () => {
       toast.success("Project updated successfully");
-      queryClient.invalidateQueries({ queryKey: ["admin", "project", id] });
+      queryClient.invalidateQueries({ queryKey: ["cms", "project", id] });
     },
     onError: (error: any) => toast.error(`Error: ${error.message}`),
   });

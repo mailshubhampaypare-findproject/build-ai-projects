@@ -20,26 +20,26 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/lib/auth";
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/cms")({
   beforeLoad: ({ context }) => {
     // @ts-ignore - role is added in getUser
-    if (!context.user || context.user.role !== "admin") {
+    if (!context.user || context.user.role !== "cms") {
       throw redirect({ to: "/" });
     }
   },
-  component: AdminLayout,
+  component: CMSLayout,
 });
 
 const SIDEBAR_ITEMS = [
-  { label: "Dashboard", icon: LayoutDashboard, to: "/admin/dashboard" },
-  { label: "Projects", icon: Package, to: "/admin/projects" },
-  { label: "Technologies", icon: Cpu, to: "/admin/technologies" },
-  { label: "Categories", icon: Tag, to: "/admin/categories" },
-  { label: "Media Library", icon: ImageIcon, to: "/admin/media" },
-  { label: "User Management", icon: Users, to: "/admin/users" },
+  { label: "Dashboard", icon: LayoutDashboard, to: "/cms/dashboard" },
+  { label: "Projects", icon: Package, to: "/cms/projects" },
+  { label: "Technologies", icon: Cpu, to: "/cms/technologies" },
+  { label: "Categories", icon: Tag, to: "/cms/categories" },
+  { label: "Media Library", icon: ImageIcon, to: "/cms/projects" },
+  { label: "User Management", icon: Users, to: "/cms/users" },
 ];
 
-function AdminLayout() {
+function CMSLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const location = useLocation();
 
@@ -58,11 +58,11 @@ function AdminLayout() {
         )}
       >
         <div className="flex h-16 items-center px-6">
-          <Link to="/admin/dashboard" className="flex items-center gap-2 font-display text-xl font-bold">
+          <Link to="/cms/dashboard" className="flex items-center gap-2 font-display text-xl font-bold">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand text-white">
               <Sparkles className="h-5 w-5" />
             </div>
-            <span>Admin Panel</span>
+            <span>CMS Panel</span>
           </Link>
           <Button
             variant="ghost"
@@ -128,7 +128,7 @@ function AdminLayout() {
             <Separator orientation="vertical" className="h-4" />
             <div className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-full bg-muted" />
-              <span className="text-sm font-medium">Administrator</span>
+              <span className="text-sm font-medium">CMS Administrator</span>
             </div>
           </div>
         </header>

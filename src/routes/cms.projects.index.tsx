@@ -42,7 +42,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
 
-export const Route = createFileRoute("/admin/projects/")({
+export const Route = createFileRoute("/cms/projects/")({
   component: ProjectsListPage,
 });
 
@@ -52,7 +52,7 @@ function ProjectsListPage() {
   const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
 
   const { data: projects, isLoading } = useQuery({
-    queryKey: ["admin", "projects", search],
+    queryKey: ["cms", "projects", search],
     queryFn: async () => {
       let query = supabase
         .from("projects")
@@ -79,7 +79,7 @@ function ProjectsListPage() {
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin", "projects"] });
+      queryClient.invalidateQueries({ queryKey: ["cms", "projects"] });
       toast.success("Project deleted successfully");
     },
     onError: (error) => toast.error(`Error: ${error.message}`),
@@ -102,7 +102,7 @@ function ProjectsListPage() {
       return newProject;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin", "projects"] });
+      queryClient.invalidateQueries({ queryKey: ["cms", "projects"] });
       toast.success("Project duplicated successfully");
     },
     onError: (error) => toast.error(`Error: ${error.message}`),
@@ -114,7 +114,7 @@ function ProjectsListPage() {
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin", "projects"] });
+      queryClient.invalidateQueries({ queryKey: ["cms", "projects"] });
       toast.success("Project status updated");
     },
     onError: (error) => toast.error(`Error: ${error.message}`),
@@ -146,7 +146,7 @@ function ProjectsListPage() {
             <Download className="h-4 w-4" /> Export CSV
           </Button>
           <Button asChild className="gap-2">
-            <Link to="/admin/projects/new">
+            <Link to="/cms/projects/new">
               <Plus className="h-4 w-4" /> Add Project
             </Link>
           </Button>
@@ -266,7 +266,7 @@ function ProjectsListPage() {
                         </a>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild className="gap-2">
-                        <Link to={`/admin/projects/${project.id}`}>
+                        <Link to={`/cms/projects/${project.id}`}>
                           <Edit className="h-4 w-4" /> Edit Details
                         </Link>
                       </DropdownMenuItem>

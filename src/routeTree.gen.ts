@@ -9,29 +9,29 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AdminRouteImport } from './routes/admin'
+import { Route as CmsRouteImport } from './routes/cms'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CmsUsersRouteImport } from './routes/cms.users'
+import { Route as CmsTechnologiesRouteImport } from './routes/cms.technologies'
+import { Route as CmsDashboardRouteImport } from './routes/cms.dashboard'
+import { Route as CmsCategoriesRouteImport } from './routes/cms.categories'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
-import { Route as AdminUsersRouteImport } from './routes/admin.users'
-import { Route as AdminTechnologiesRouteImport } from './routes/admin.technologies'
-import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
-import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
 import { Route as AppSettingsRouteImport } from './routes/_app.settings'
 import { Route as AppProfileRouteImport } from './routes/_app.profile'
 import { Route as AppPricingRouteImport } from './routes/_app.pricing'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
 import { Route as AppCreateRouteImport } from './routes/_app.create'
 import { Route as AppBrowseRouteImport } from './routes/_app.browse'
-import { Route as AdminProjectsIndexRouteImport } from './routes/admin.projects.index'
+import { Route as CmsProjectsIndexRouteImport } from './routes/cms.projects.index'
 import { Route as AppProjectsIndexRouteImport } from './routes/_app.projects.index'
-import { Route as AdminProjectsNewRouteImport } from './routes/admin.projects.new'
-import { Route as AdminProjectsIdRouteImport } from './routes/admin.projects.$id'
+import { Route as CmsProjectsNewRouteImport } from './routes/cms.projects.new'
+import { Route as CmsProjectsIdRouteImport } from './routes/cms.projects.$id'
 import { Route as AppProjectsIdRouteImport } from './routes/_app.projects.$id'
 
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const CmsRoute = CmsRouteImport.update({
+  id: '/cms',
+  path: '/cms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRoute = AppRouteImport.update({
@@ -43,30 +43,30 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CmsUsersRoute = CmsUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => CmsRoute,
+} as any)
+const CmsTechnologiesRoute = CmsTechnologiesRouteImport.update({
+  id: '/technologies',
+  path: '/technologies',
+  getParentRoute: () => CmsRoute,
+} as any)
+const CmsDashboardRoute = CmsDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => CmsRoute,
+} as any)
+const CmsCategoriesRoute = CmsCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => CmsRoute,
+} as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
   id: '/auth/callback',
   path: '/auth/callback',
   getParentRoute: () => rootRouteImport,
-} as any)
-const AdminUsersRoute = AdminUsersRouteImport.update({
-  id: '/users',
-  path: '/users',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminTechnologiesRoute = AdminTechnologiesRouteImport.update({
-  id: '/technologies',
-  path: '/technologies',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminDashboardRoute = AdminDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
-  id: '/categories',
-  path: '/categories',
-  getParentRoute: () => AdminRoute,
 } as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
@@ -98,25 +98,25 @@ const AppBrowseRoute = AppBrowseRouteImport.update({
   path: '/browse',
   getParentRoute: () => AppRoute,
 } as any)
-const AdminProjectsIndexRoute = AdminProjectsIndexRouteImport.update({
+const CmsProjectsIndexRoute = CmsProjectsIndexRouteImport.update({
   id: '/projects/',
   path: '/projects/',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => CmsRoute,
 } as any)
 const AppProjectsIndexRoute = AppProjectsIndexRouteImport.update({
   id: '/projects/',
   path: '/projects/',
   getParentRoute: () => AppRoute,
 } as any)
-const AdminProjectsNewRoute = AdminProjectsNewRouteImport.update({
+const CmsProjectsNewRoute = CmsProjectsNewRouteImport.update({
   id: '/projects/new',
   path: '/projects/new',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => CmsRoute,
 } as any)
-const AdminProjectsIdRoute = AdminProjectsIdRouteImport.update({
+const CmsProjectsIdRoute = CmsProjectsIdRouteImport.update({
   id: '/projects/$id',
   path: '/projects/$id',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => CmsRoute,
 } as any)
 const AppProjectsIdRoute = AppProjectsIdRouteImport.update({
   id: '/projects/$id',
@@ -126,144 +126,144 @@ const AppProjectsIdRoute = AppProjectsIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteWithChildren
+  '/cms': typeof CmsRouteWithChildren
   '/browse': typeof AppBrowseRoute
   '/create': typeof AppCreateRoute
   '/dashboard': typeof AppDashboardRoute
   '/pricing': typeof AppPricingRoute
   '/profile': typeof AppProfileRoute
   '/settings': typeof AppSettingsRoute
-  '/admin/categories': typeof AdminCategoriesRoute
-  '/admin/dashboard': typeof AdminDashboardRoute
-  '/admin/technologies': typeof AdminTechnologiesRoute
-  '/admin/users': typeof AdminUsersRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/cms/categories': typeof CmsCategoriesRoute
+  '/cms/dashboard': typeof CmsDashboardRoute
+  '/cms/technologies': typeof CmsTechnologiesRoute
+  '/cms/users': typeof CmsUsersRoute
   '/projects/$id': typeof AppProjectsIdRoute
-  '/admin/projects/$id': typeof AdminProjectsIdRoute
-  '/admin/projects/new': typeof AdminProjectsNewRoute
+  '/cms/projects/$id': typeof CmsProjectsIdRoute
+  '/cms/projects/new': typeof CmsProjectsNewRoute
   '/projects/': typeof AppProjectsIndexRoute
-  '/admin/projects/': typeof AdminProjectsIndexRoute
+  '/cms/projects/': typeof CmsProjectsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteWithChildren
+  '/cms': typeof CmsRouteWithChildren
   '/browse': typeof AppBrowseRoute
   '/create': typeof AppCreateRoute
   '/dashboard': typeof AppDashboardRoute
   '/pricing': typeof AppPricingRoute
   '/profile': typeof AppProfileRoute
   '/settings': typeof AppSettingsRoute
-  '/admin/categories': typeof AdminCategoriesRoute
-  '/admin/dashboard': typeof AdminDashboardRoute
-  '/admin/technologies': typeof AdminTechnologiesRoute
-  '/admin/users': typeof AdminUsersRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/cms/categories': typeof CmsCategoriesRoute
+  '/cms/dashboard': typeof CmsDashboardRoute
+  '/cms/technologies': typeof CmsTechnologiesRoute
+  '/cms/users': typeof CmsUsersRoute
   '/projects/$id': typeof AppProjectsIdRoute
-  '/admin/projects/$id': typeof AdminProjectsIdRoute
-  '/admin/projects/new': typeof AdminProjectsNewRoute
+  '/cms/projects/$id': typeof CmsProjectsIdRoute
+  '/cms/projects/new': typeof CmsProjectsNewRoute
   '/projects': typeof AppProjectsIndexRoute
-  '/admin/projects': typeof AdminProjectsIndexRoute
+  '/cms/projects': typeof CmsProjectsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
-  '/admin': typeof AdminRouteWithChildren
+  '/cms': typeof CmsRouteWithChildren
   '/_app/browse': typeof AppBrowseRoute
   '/_app/create': typeof AppCreateRoute
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/pricing': typeof AppPricingRoute
   '/_app/profile': typeof AppProfileRoute
   '/_app/settings': typeof AppSettingsRoute
-  '/admin/categories': typeof AdminCategoriesRoute
-  '/admin/dashboard': typeof AdminDashboardRoute
-  '/admin/technologies': typeof AdminTechnologiesRoute
-  '/admin/users': typeof AdminUsersRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/cms/categories': typeof CmsCategoriesRoute
+  '/cms/dashboard': typeof CmsDashboardRoute
+  '/cms/technologies': typeof CmsTechnologiesRoute
+  '/cms/users': typeof CmsUsersRoute
   '/_app/projects/$id': typeof AppProjectsIdRoute
-  '/admin/projects/$id': typeof AdminProjectsIdRoute
-  '/admin/projects/new': typeof AdminProjectsNewRoute
+  '/cms/projects/$id': typeof CmsProjectsIdRoute
+  '/cms/projects/new': typeof CmsProjectsNewRoute
   '/_app/projects/': typeof AppProjectsIndexRoute
-  '/admin/projects/': typeof AdminProjectsIndexRoute
+  '/cms/projects/': typeof CmsProjectsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/admin'
+    | '/cms'
     | '/browse'
     | '/create'
     | '/dashboard'
     | '/pricing'
     | '/profile'
     | '/settings'
-    | '/admin/categories'
-    | '/admin/dashboard'
-    | '/admin/technologies'
-    | '/admin/users'
     | '/auth/callback'
+    | '/cms/categories'
+    | '/cms/dashboard'
+    | '/cms/technologies'
+    | '/cms/users'
     | '/projects/$id'
-    | '/admin/projects/$id'
-    | '/admin/projects/new'
+    | '/cms/projects/$id'
+    | '/cms/projects/new'
     | '/projects/'
-    | '/admin/projects/'
+    | '/cms/projects/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/admin'
+    | '/cms'
     | '/browse'
     | '/create'
     | '/dashboard'
     | '/pricing'
     | '/profile'
     | '/settings'
-    | '/admin/categories'
-    | '/admin/dashboard'
-    | '/admin/technologies'
-    | '/admin/users'
     | '/auth/callback'
+    | '/cms/categories'
+    | '/cms/dashboard'
+    | '/cms/technologies'
+    | '/cms/users'
     | '/projects/$id'
-    | '/admin/projects/$id'
-    | '/admin/projects/new'
+    | '/cms/projects/$id'
+    | '/cms/projects/new'
     | '/projects'
-    | '/admin/projects'
+    | '/cms/projects'
   id:
     | '__root__'
     | '/'
     | '/_app'
-    | '/admin'
+    | '/cms'
     | '/_app/browse'
     | '/_app/create'
     | '/_app/dashboard'
     | '/_app/pricing'
     | '/_app/profile'
     | '/_app/settings'
-    | '/admin/categories'
-    | '/admin/dashboard'
-    | '/admin/technologies'
-    | '/admin/users'
     | '/auth/callback'
+    | '/cms/categories'
+    | '/cms/dashboard'
+    | '/cms/technologies'
+    | '/cms/users'
     | '/_app/projects/$id'
-    | '/admin/projects/$id'
-    | '/admin/projects/new'
+    | '/cms/projects/$id'
+    | '/cms/projects/new'
     | '/_app/projects/'
-    | '/admin/projects/'
+    | '/cms/projects/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
-  AdminRoute: typeof AdminRouteWithChildren
+  CmsRoute: typeof CmsRouteWithChildren
   AuthCallbackRoute: typeof AuthCallbackRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
+    '/cms': {
+      id: '/cms'
+      path: '/cms'
+      fullPath: '/cms'
+      preLoaderRoute: typeof CmsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
@@ -280,40 +280,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cms/users': {
+      id: '/cms/users'
+      path: '/users'
+      fullPath: '/cms/users'
+      preLoaderRoute: typeof CmsUsersRouteImport
+      parentRoute: typeof CmsRoute
+    }
+    '/cms/technologies': {
+      id: '/cms/technologies'
+      path: '/technologies'
+      fullPath: '/cms/technologies'
+      preLoaderRoute: typeof CmsTechnologiesRouteImport
+      parentRoute: typeof CmsRoute
+    }
+    '/cms/dashboard': {
+      id: '/cms/dashboard'
+      path: '/dashboard'
+      fullPath: '/cms/dashboard'
+      preLoaderRoute: typeof CmsDashboardRouteImport
+      parentRoute: typeof CmsRoute
+    }
+    '/cms/categories': {
+      id: '/cms/categories'
+      path: '/categories'
+      fullPath: '/cms/categories'
+      preLoaderRoute: typeof CmsCategoriesRouteImport
+      parentRoute: typeof CmsRoute
+    }
     '/auth/callback': {
       id: '/auth/callback'
       path: '/auth/callback'
       fullPath: '/auth/callback'
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/admin/users': {
-      id: '/admin/users'
-      path: '/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof AdminUsersRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/technologies': {
-      id: '/admin/technologies'
-      path: '/technologies'
-      fullPath: '/admin/technologies'
-      preLoaderRoute: typeof AdminTechnologiesRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/dashboard': {
-      id: '/admin/dashboard'
-      path: '/dashboard'
-      fullPath: '/admin/dashboard'
-      preLoaderRoute: typeof AdminDashboardRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/categories': {
-      id: '/admin/categories'
-      path: '/categories'
-      fullPath: '/admin/categories'
-      preLoaderRoute: typeof AdminCategoriesRouteImport
-      parentRoute: typeof AdminRoute
     }
     '/_app/settings': {
       id: '/_app/settings'
@@ -357,12 +357,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBrowseRouteImport
       parentRoute: typeof AppRoute
     }
-    '/admin/projects/': {
-      id: '/admin/projects/'
+    '/cms/projects/': {
+      id: '/cms/projects/'
       path: '/projects'
-      fullPath: '/admin/projects/'
-      preLoaderRoute: typeof AdminProjectsIndexRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/cms/projects/'
+      preLoaderRoute: typeof CmsProjectsIndexRouteImport
+      parentRoute: typeof CmsRoute
     }
     '/_app/projects/': {
       id: '/_app/projects/'
@@ -371,19 +371,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProjectsIndexRouteImport
       parentRoute: typeof AppRoute
     }
-    '/admin/projects/new': {
-      id: '/admin/projects/new'
+    '/cms/projects/new': {
+      id: '/cms/projects/new'
       path: '/projects/new'
-      fullPath: '/admin/projects/new'
-      preLoaderRoute: typeof AdminProjectsNewRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/cms/projects/new'
+      preLoaderRoute: typeof CmsProjectsNewRouteImport
+      parentRoute: typeof CmsRoute
     }
-    '/admin/projects/$id': {
-      id: '/admin/projects/$id'
+    '/cms/projects/$id': {
+      id: '/cms/projects/$id'
       path: '/projects/$id'
-      fullPath: '/admin/projects/$id'
-      preLoaderRoute: typeof AdminProjectsIdRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/cms/projects/$id'
+      preLoaderRoute: typeof CmsProjectsIdRouteImport
+      parentRoute: typeof CmsRoute
     }
     '/_app/projects/$id': {
       id: '/_app/projects/$id'
@@ -419,32 +419,32 @@ const AppRouteChildren: AppRouteChildren = {
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
-interface AdminRouteChildren {
-  AdminCategoriesRoute: typeof AdminCategoriesRoute
-  AdminDashboardRoute: typeof AdminDashboardRoute
-  AdminTechnologiesRoute: typeof AdminTechnologiesRoute
-  AdminUsersRoute: typeof AdminUsersRoute
-  AdminProjectsIdRoute: typeof AdminProjectsIdRoute
-  AdminProjectsNewRoute: typeof AdminProjectsNewRoute
-  AdminProjectsIndexRoute: typeof AdminProjectsIndexRoute
+interface CmsRouteChildren {
+  CmsCategoriesRoute: typeof CmsCategoriesRoute
+  CmsDashboardRoute: typeof CmsDashboardRoute
+  CmsTechnologiesRoute: typeof CmsTechnologiesRoute
+  CmsUsersRoute: typeof CmsUsersRoute
+  CmsProjectsIdRoute: typeof CmsProjectsIdRoute
+  CmsProjectsNewRoute: typeof CmsProjectsNewRoute
+  CmsProjectsIndexRoute: typeof CmsProjectsIndexRoute
 }
 
-const AdminRouteChildren: AdminRouteChildren = {
-  AdminCategoriesRoute: AdminCategoriesRoute,
-  AdminDashboardRoute: AdminDashboardRoute,
-  AdminTechnologiesRoute: AdminTechnologiesRoute,
-  AdminUsersRoute: AdminUsersRoute,
-  AdminProjectsIdRoute: AdminProjectsIdRoute,
-  AdminProjectsNewRoute: AdminProjectsNewRoute,
-  AdminProjectsIndexRoute: AdminProjectsIndexRoute,
+const CmsRouteChildren: CmsRouteChildren = {
+  CmsCategoriesRoute: CmsCategoriesRoute,
+  CmsDashboardRoute: CmsDashboardRoute,
+  CmsTechnologiesRoute: CmsTechnologiesRoute,
+  CmsUsersRoute: CmsUsersRoute,
+  CmsProjectsIdRoute: CmsProjectsIdRoute,
+  CmsProjectsNewRoute: CmsProjectsNewRoute,
+  CmsProjectsIndexRoute: CmsProjectsIndexRoute,
 }
 
-const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+const CmsRouteWithChildren = CmsRoute._addFileChildren(CmsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
-  AdminRoute: AdminRouteWithChildren,
+  CmsRoute: CmsRouteWithChildren,
   AuthCallbackRoute: AuthCallbackRoute,
 }
 export const routeTree = rootRouteImport

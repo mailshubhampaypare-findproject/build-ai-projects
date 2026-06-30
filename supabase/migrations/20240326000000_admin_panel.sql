@@ -1,5 +1,5 @@
 -- Create user roles enum
-CREATE TYPE public.user_role AS ENUM ('user', 'admin');
+CREATE TYPE public.user_role AS ENUM ('user', 'cms');
 
 -- Create profiles table
 CREATE TABLE IF NOT EXISTS public.profiles (
@@ -22,12 +22,12 @@ CREATE POLICY "Public profiles are viewable by everyone" ON public.profiles
 CREATE POLICY "Users can update their own profile" ON public.profiles
     FOR UPDATE USING (auth.uid() = id);
 
--- Function to check if user is admin
-CREATE OR REPLACE FUNCTION public.is_admin()
+-- Function to check if user is cms
+CREATE OR REPLACE FUNCTION public.is_cms()
 RETURNS BOOLEAN AS $$
 BEGIN
     RETURN (
-        SELECT role = 'admin'
+        SELECT role = 'cms'
         FROM public.profiles
         WHERE id = auth.uid()
     );
@@ -98,7 +98,7 @@ ALTER TABLE public.project_launch_steps ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Project modules are viewable by everyone" ON public.project_modules FOR SELECT USING (true);
 CREATE POLICY "Project launch steps are viewable by everyone" ON public.project_launch_steps FOR SELECT USING (true);
 
--- Admin management policies
+-- CMS management policies
 DO $$
 DECLARE
     t text;
@@ -113,6 +113,6 @@ BEGIN
             'project_modules', 'project_launch_steps', 'profiles'
         )
     LOOP
-        EXECUTE format('CREATE POLICY "Admins can manage %I" ON public.%I FOR ALL USING (public.is_admin())', t, t);
+        EXECUTE format('CREATE POLICY "CMS Administrators can manage %I" ON public.%I FOR ALL USING (public.is_cms())', t, t);
     END LOOP;
 END $$;
