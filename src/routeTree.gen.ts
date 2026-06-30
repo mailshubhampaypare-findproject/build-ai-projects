@@ -13,9 +13,15 @@ import { Route as CmsRouteImport } from './routes/cms'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CmsIndexRouteImport } from './routes/cms.index'
+import { Route as CmsUsersRouteImport } from './routes/cms.users'
 import { Route as CmsUnauthorizedRouteImport } from './routes/cms.unauthorized'
+import { Route as CmsTechnologiesRouteImport } from './routes/cms.technologies'
+import { Route as CmsSettingsRouteImport } from './routes/cms.settings'
+import { Route as CmsProjectsRouteImport } from './routes/cms.projects'
+import { Route as CmsMediaRouteImport } from './routes/cms.media'
 import { Route as CmsLoginRouteImport } from './routes/cms.login'
 import { Route as CmsDashboardRouteImport } from './routes/cms.dashboard'
+import { Route as CmsCategoriesRouteImport } from './routes/cms.categories'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AppSettingsRouteImport } from './routes/_app.settings'
 import { Route as AppProfileRouteImport } from './routes/_app.profile'
@@ -45,9 +51,34 @@ const CmsIndexRoute = CmsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => CmsRoute,
 } as any)
+const CmsUsersRoute = CmsUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => CmsRoute,
+} as any)
 const CmsUnauthorizedRoute = CmsUnauthorizedRouteImport.update({
   id: '/unauthorized',
   path: '/unauthorized',
+  getParentRoute: () => CmsRoute,
+} as any)
+const CmsTechnologiesRoute = CmsTechnologiesRouteImport.update({
+  id: '/technologies',
+  path: '/technologies',
+  getParentRoute: () => CmsRoute,
+} as any)
+const CmsSettingsRoute = CmsSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => CmsRoute,
+} as any)
+const CmsProjectsRoute = CmsProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => CmsRoute,
+} as any)
+const CmsMediaRoute = CmsMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
   getParentRoute: () => CmsRoute,
 } as any)
 const CmsLoginRoute = CmsLoginRouteImport.update({
@@ -58,6 +89,11 @@ const CmsLoginRoute = CmsLoginRouteImport.update({
 const CmsDashboardRoute = CmsDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => CmsRoute,
+} as any)
+const CmsCategoriesRoute = CmsCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
   getParentRoute: () => CmsRoute,
 } as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
@@ -116,9 +152,15 @@ export interface FileRoutesByFullPath {
   '/profile': typeof AppProfileRoute
   '/settings': typeof AppSettingsRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/cms/categories': typeof CmsCategoriesRoute
   '/cms/dashboard': typeof CmsDashboardRoute
   '/cms/login': typeof CmsLoginRoute
+  '/cms/media': typeof CmsMediaRoute
+  '/cms/projects': typeof CmsProjectsRoute
+  '/cms/settings': typeof CmsSettingsRoute
+  '/cms/technologies': typeof CmsTechnologiesRoute
   '/cms/unauthorized': typeof CmsUnauthorizedRoute
+  '/cms/users': typeof CmsUsersRoute
   '/cms/': typeof CmsIndexRoute
   '/projects/$id': typeof AppProjectsIdRoute
   '/projects/': typeof AppProjectsIndexRoute
@@ -132,9 +174,15 @@ export interface FileRoutesByTo {
   '/profile': typeof AppProfileRoute
   '/settings': typeof AppSettingsRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/cms/categories': typeof CmsCategoriesRoute
   '/cms/dashboard': typeof CmsDashboardRoute
   '/cms/login': typeof CmsLoginRoute
+  '/cms/media': typeof CmsMediaRoute
+  '/cms/projects': typeof CmsProjectsRoute
+  '/cms/settings': typeof CmsSettingsRoute
+  '/cms/technologies': typeof CmsTechnologiesRoute
   '/cms/unauthorized': typeof CmsUnauthorizedRoute
+  '/cms/users': typeof CmsUsersRoute
   '/cms': typeof CmsIndexRoute
   '/projects/$id': typeof AppProjectsIdRoute
   '/projects': typeof AppProjectsIndexRoute
@@ -151,9 +199,15 @@ export interface FileRoutesById {
   '/_app/profile': typeof AppProfileRoute
   '/_app/settings': typeof AppSettingsRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/cms/categories': typeof CmsCategoriesRoute
   '/cms/dashboard': typeof CmsDashboardRoute
   '/cms/login': typeof CmsLoginRoute
+  '/cms/media': typeof CmsMediaRoute
+  '/cms/projects': typeof CmsProjectsRoute
+  '/cms/settings': typeof CmsSettingsRoute
+  '/cms/technologies': typeof CmsTechnologiesRoute
   '/cms/unauthorized': typeof CmsUnauthorizedRoute
+  '/cms/users': typeof CmsUsersRoute
   '/cms/': typeof CmsIndexRoute
   '/_app/projects/$id': typeof AppProjectsIdRoute
   '/_app/projects/': typeof AppProjectsIndexRoute
@@ -170,9 +224,15 @@ export interface FileRouteTypes {
     | '/profile'
     | '/settings'
     | '/auth/callback'
+    | '/cms/categories'
     | '/cms/dashboard'
     | '/cms/login'
+    | '/cms/media'
+    | '/cms/projects'
+    | '/cms/settings'
+    | '/cms/technologies'
     | '/cms/unauthorized'
+    | '/cms/users'
     | '/cms/'
     | '/projects/$id'
     | '/projects/'
@@ -186,9 +246,15 @@ export interface FileRouteTypes {
     | '/profile'
     | '/settings'
     | '/auth/callback'
+    | '/cms/categories'
     | '/cms/dashboard'
     | '/cms/login'
+    | '/cms/media'
+    | '/cms/projects'
+    | '/cms/settings'
+    | '/cms/technologies'
     | '/cms/unauthorized'
+    | '/cms/users'
     | '/cms'
     | '/projects/$id'
     | '/projects'
@@ -204,9 +270,15 @@ export interface FileRouteTypes {
     | '/_app/profile'
     | '/_app/settings'
     | '/auth/callback'
+    | '/cms/categories'
     | '/cms/dashboard'
     | '/cms/login'
+    | '/cms/media'
+    | '/cms/projects'
+    | '/cms/settings'
+    | '/cms/technologies'
     | '/cms/unauthorized'
+    | '/cms/users'
     | '/cms/'
     | '/_app/projects/$id'
     | '/_app/projects/'
@@ -249,11 +321,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CmsIndexRouteImport
       parentRoute: typeof CmsRoute
     }
+    '/cms/users': {
+      id: '/cms/users'
+      path: '/users'
+      fullPath: '/cms/users'
+      preLoaderRoute: typeof CmsUsersRouteImport
+      parentRoute: typeof CmsRoute
+    }
     '/cms/unauthorized': {
       id: '/cms/unauthorized'
       path: '/unauthorized'
       fullPath: '/cms/unauthorized'
       preLoaderRoute: typeof CmsUnauthorizedRouteImport
+      parentRoute: typeof CmsRoute
+    }
+    '/cms/technologies': {
+      id: '/cms/technologies'
+      path: '/technologies'
+      fullPath: '/cms/technologies'
+      preLoaderRoute: typeof CmsTechnologiesRouteImport
+      parentRoute: typeof CmsRoute
+    }
+    '/cms/settings': {
+      id: '/cms/settings'
+      path: '/settings'
+      fullPath: '/cms/settings'
+      preLoaderRoute: typeof CmsSettingsRouteImport
+      parentRoute: typeof CmsRoute
+    }
+    '/cms/projects': {
+      id: '/cms/projects'
+      path: '/projects'
+      fullPath: '/cms/projects'
+      preLoaderRoute: typeof CmsProjectsRouteImport
+      parentRoute: typeof CmsRoute
+    }
+    '/cms/media': {
+      id: '/cms/media'
+      path: '/media'
+      fullPath: '/cms/media'
+      preLoaderRoute: typeof CmsMediaRouteImport
       parentRoute: typeof CmsRoute
     }
     '/cms/login': {
@@ -268,6 +375,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/cms/dashboard'
       preLoaderRoute: typeof CmsDashboardRouteImport
+      parentRoute: typeof CmsRoute
+    }
+    '/cms/categories': {
+      id: '/cms/categories'
+      path: '/categories'
+      fullPath: '/cms/categories'
+      preLoaderRoute: typeof CmsCategoriesRouteImport
       parentRoute: typeof CmsRoute
     }
     '/auth/callback': {
@@ -361,16 +475,28 @@ const AppRouteChildren: AppRouteChildren = {
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 interface CmsRouteChildren {
+  CmsCategoriesRoute: typeof CmsCategoriesRoute
   CmsDashboardRoute: typeof CmsDashboardRoute
   CmsLoginRoute: typeof CmsLoginRoute
+  CmsMediaRoute: typeof CmsMediaRoute
+  CmsProjectsRoute: typeof CmsProjectsRoute
+  CmsSettingsRoute: typeof CmsSettingsRoute
+  CmsTechnologiesRoute: typeof CmsTechnologiesRoute
   CmsUnauthorizedRoute: typeof CmsUnauthorizedRoute
+  CmsUsersRoute: typeof CmsUsersRoute
   CmsIndexRoute: typeof CmsIndexRoute
 }
 
 const CmsRouteChildren: CmsRouteChildren = {
+  CmsCategoriesRoute: CmsCategoriesRoute,
   CmsDashboardRoute: CmsDashboardRoute,
   CmsLoginRoute: CmsLoginRoute,
+  CmsMediaRoute: CmsMediaRoute,
+  CmsProjectsRoute: CmsProjectsRoute,
+  CmsSettingsRoute: CmsSettingsRoute,
+  CmsTechnologiesRoute: CmsTechnologiesRoute,
   CmsUnauthorizedRoute: CmsUnauthorizedRoute,
+  CmsUsersRoute: CmsUsersRoute,
   CmsIndexRoute: CmsIndexRoute,
 }
 
