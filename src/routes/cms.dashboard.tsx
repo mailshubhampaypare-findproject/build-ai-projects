@@ -28,13 +28,13 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/admin/dashboard")({
+export const Route = createFileRoute("/cms/dashboard")({
   component: DashboardPage,
 });
 
 function useDashboardStats() {
   return useQuery({
-    queryKey: ["admin", "dashboard-stats"],
+    queryKey: ["cms", "dashboard-stats"],
     queryFn: async () => {
       const [
         { count: totalProjects },
@@ -131,10 +131,10 @@ function DashboardPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Dashboard Overview</h1>
-          <p className="text-muted-foreground">Welcome back, Admin. Here's what's happening today.</p>
+          <p className="text-muted-foreground">Welcome back, CMS. Here's what's happening today.</p>
         </div>
         <Button asChild>
-          <Link to="/admin/projects" className="gap-2">
+          <Link to="/cms/projects" className="gap-2">
             <Plus className="h-4 w-4" /> New Project
           </Link>
         </Button>
@@ -215,7 +215,7 @@ function DashboardPage() {
               <CardDescription>Latest project uploads and updates.</CardDescription>
             </div>
             <Button variant="outline" size="sm" asChild>
-              <Link to="/admin/projects">View All</Link>
+              <Link to="/cms/projects">View All</Link>
             </Button>
           </CardHeader>
           <CardContent>

@@ -88,7 +88,7 @@ export const MY_PROJECTS: Project[] = [
   {
     id: "ecom-dashboard",
     name: "E-Commerce Dashboard",
-    description: "Modern admin panel with charts and order tracking for online stores.",
+    description: "Modern cms panel with charts and order tracking for online stores.",
     tech: ["React", "Node.js", "PostgreSQL"],
     category: "React Projects",
     difficulty: "Intermediate",
@@ -121,7 +121,7 @@ export const TEMPLATE_PROJECTS: Project[] = [
   {
     id: "django-blog",
     name: "Django Blog Platform",
-    description: "Full-stack blog with authentication, comments, and an admin panel.",
+    description: "Full-stack blog with authentication, comments, and an cms panel.",
     tech: ["Django", "PostgreSQL", "Tailwind"],
     category: "Django Projects",
     difficulty: "Intermediate",
@@ -144,14 +144,14 @@ export const TEMPLATE_PROJECTS: Project[] = [
       "User Authentication (Sign up, Login, Logout)",
       "Blog Post CRUD operations",
       "Comment system",
-      "Admin Dashboard",
+      "CMS Dashboard",
       "Tagging system",
     ],
     screenshots: ["https://picsum.photos/seed/django1/800/450", "https://picsum.photos/seed/django2/800/450"],
     modules: [
       { name: "Auth Module", description: "Handles user registration and login." },
       { name: "Blog Module", description: "Manages posts, categories, and comments." },
-      { name: "Admin Module", description: "Provides an interface for site administrators." },
+      { name: "CMS Module", description: "Provides an interface for site cmsistrators." },
     ],
     database: {
       type: "PostgreSQL",
@@ -164,7 +164,7 @@ export const TEMPLATE_PROJECTS: Project[] = [
     },
     documentation: {
       architecture: "The project follows the Model-Template-View (MTV) architectural pattern.",
-      working: "Users can browse posts, sign in to comment, and admins can manage content via the dashboard.",
+      working: "Users can browse posts, sign in to comment, and cmss can manage content via the dashboard.",
       implementation: "Built using Django 4.2 and PostgreSQL, styled with Tailwind CSS.",
     },
     folderStructure: [

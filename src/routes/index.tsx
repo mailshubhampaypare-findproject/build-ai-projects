@@ -187,7 +187,7 @@ function Hero() {
                 <div className="flex-1 space-y-4 p-6">
                   <div className="flex justify-end">
                     <div className="max-w-[80%] rounded-2xl rounded-tr-sm bg-primary px-4 py-2.5 text-sm text-primary-foreground">
-                      Build a student attendance tracker with QR codes, React frontend, and admin
+                      Build a student attendance tracker with QR codes, React frontend, and cms
                       dashboard.
                     </div>
                   </div>
@@ -405,7 +405,7 @@ const PLANS = [
     cadence: "annual",
     desc: "For colleges and engineering teams.",
     cta: "Contact Sales",
-    features: ["Bulk seats", "Custom templates", "SSO + admin controls", "Dedicated support"],
+    features: ["Bulk seats", "Custom templates", "SSO + cms controls", "Dedicated support"],
     popular: false,
   },
 ];

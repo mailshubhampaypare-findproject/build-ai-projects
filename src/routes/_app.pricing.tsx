@@ -42,7 +42,7 @@ const PLANS = [
     price: "Custom",
     cadence: "annual",
     desc: "For colleges and engineering teams.",
-    features: ["Bulk seats", "Custom templates", "SSO + admin controls", "Dedicated support"],
+    features: ["Bulk seats", "Custom templates", "SSO + cms controls", "Dedicated support"],
     popular: false,
     cta: "Contact Sales",
   },

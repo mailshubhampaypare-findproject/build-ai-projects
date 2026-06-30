@@ -25,7 +25,7 @@ type Step = 1 | 2 | 3;
 
 const FEATURE_OPTIONS = [
   "User authentication",
-  "Admin panel",
+  "CMS panel",
   "Database integration",
   "REST API",
   "Realtime updates",
@@ -61,7 +61,7 @@ function CreatePage() {
   ]);
   const [needsAuth, setNeedsAuth] = useState(true);
   const [responsive, setResponsive] = useState(true);
-  const [adminPanel, setAdminPanel] = useState(false);
+  const [cmsPanel, setCMSPanel] = useState(false);
   const [deliverables, setDeliverables] = useState<string[]>([
     "Source Code",
     "Documentation",
@@ -116,7 +116,7 @@ function CreatePage() {
           <Textarea
             value={idea}
             onChange={(e) => setIdea(e.target.value)}
-            placeholder="Example: A student attendance tracker with QR codes, admin dashboard, and weekly reports..."
+            placeholder="Example: A student attendance tracker with QR codes, cms dashboard, and weekly reports..."
             className="mt-4 min-h-[160px] resize-none"
           />
           <div className="mt-3 flex flex-wrap gap-2">
@@ -237,10 +237,10 @@ function CreatePage() {
                 onChange={setResponsive}
               />
               <SwitchRow
-                label="Admin panel"
-                desc="Management UI for admins."
-                checked={adminPanel}
-                onChange={setAdminPanel}
+                label="CMS panel"
+                desc="Management UI for cmss."
+                checked={cmsPanel}
+                onChange={setCMSPanel}
               />
               <SwitchRow
                 label="Generate sample data"
@@ -333,7 +333,7 @@ function CreatePage() {
             <BlueprintRow label="Database" value={needsDb ? "PostgreSQL / Supabase" : "None"} />
             <BlueprintRow label="Authentication" value={needsAuth ? "Email + OAuth" : "None"} />
             <BlueprintRow label="Users" value={users || "General users"} />
-            <BlueprintRow label="Admin panel" value={adminPanel ? "Included" : "Not included"} />
+            <BlueprintRow label="CMS panel" value={cmsPanel ? "Included" : "Not included"} />
             <BlueprintRow label="Responsive" value={responsive ? "Yes" : "No"} />
           </div>
 

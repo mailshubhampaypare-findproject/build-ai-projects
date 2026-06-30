@@ -2,9 +2,9 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ProjectForm } from "@/components/admin/project-form";
+import { ProjectForm } from "@/components/cms/project-form";
 
-export const Route = createFileRoute("/admin/projects/new")({
+export const Route = createFileRoute("/cms/projects/new")({
   component: CreateProjectPage,
 });
 
@@ -47,8 +47,8 @@ function CreateProjectPage() {
     },
     onSuccess: (project) => {
       toast.success("Project created successfully");
-      queryClient.invalidateQueries({ queryKey: ["admin", "projects"] });
-      navigate({ to: "/admin/projects/$id", params: { id: project.id } });
+      queryClient.invalidateQueries({ queryKey: ["cms", "projects"] });
+      navigate({ to: "/cms/projects/$id", params: { id: project.id } });
     },
     onError: (error: any) => toast.error(`Error: ${error.message}`),
   });
