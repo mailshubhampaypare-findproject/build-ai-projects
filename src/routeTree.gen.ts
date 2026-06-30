@@ -9,8 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as CmsRouteImport } from './routes/cms'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CmsIndexRouteImport } from './routes/cms.index'
+import { Route as CmsUnauthorizedRouteImport } from './routes/cms.unauthorized'
+import { Route as CmsLoginRouteImport } from './routes/cms.login'
+import { Route as CmsDashboardRouteImport } from './routes/cms.dashboard'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AppSettingsRouteImport } from './routes/_app.settings'
 import { Route as AppProfileRouteImport } from './routes/_app.profile'
@@ -21,6 +26,11 @@ import { Route as AppBrowseRouteImport } from './routes/_app.browse'
 import { Route as AppProjectsIndexRouteImport } from './routes/_app.projects.index'
 import { Route as AppProjectsIdRouteImport } from './routes/_app.projects.$id'
 
+const CmsRoute = CmsRouteImport.update({
+  id: '/cms',
+  path: '/cms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
@@ -29,6 +39,26 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const CmsIndexRoute = CmsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CmsRoute,
+} as any)
+const CmsUnauthorizedRoute = CmsUnauthorizedRouteImport.update({
+  id: '/unauthorized',
+  path: '/unauthorized',
+  getParentRoute: () => CmsRoute,
+} as any)
+const CmsLoginRoute = CmsLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => CmsRoute,
+} as any)
+const CmsDashboardRoute = CmsDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => CmsRoute,
 } as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
   id: '/auth/callback',
@@ -78,6 +108,7 @@ const AppProjectsIdRoute = AppProjectsIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cms': typeof CmsRouteWithChildren
   '/browse': typeof AppBrowseRoute
   '/create': typeof AppCreateRoute
   '/dashboard': typeof AppDashboardRoute
@@ -85,6 +116,10 @@ export interface FileRoutesByFullPath {
   '/profile': typeof AppProfileRoute
   '/settings': typeof AppSettingsRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/cms/dashboard': typeof CmsDashboardRoute
+  '/cms/login': typeof CmsLoginRoute
+  '/cms/unauthorized': typeof CmsUnauthorizedRoute
+  '/cms/': typeof CmsIndexRoute
   '/projects/$id': typeof AppProjectsIdRoute
   '/projects/': typeof AppProjectsIndexRoute
 }
@@ -97,6 +132,10 @@ export interface FileRoutesByTo {
   '/profile': typeof AppProfileRoute
   '/settings': typeof AppSettingsRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/cms/dashboard': typeof CmsDashboardRoute
+  '/cms/login': typeof CmsLoginRoute
+  '/cms/unauthorized': typeof CmsUnauthorizedRoute
+  '/cms': typeof CmsIndexRoute
   '/projects/$id': typeof AppProjectsIdRoute
   '/projects': typeof AppProjectsIndexRoute
 }
@@ -104,6 +143,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
+  '/cms': typeof CmsRouteWithChildren
   '/_app/browse': typeof AppBrowseRoute
   '/_app/create': typeof AppCreateRoute
   '/_app/dashboard': typeof AppDashboardRoute
@@ -111,6 +151,10 @@ export interface FileRoutesById {
   '/_app/profile': typeof AppProfileRoute
   '/_app/settings': typeof AppSettingsRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/cms/dashboard': typeof CmsDashboardRoute
+  '/cms/login': typeof CmsLoginRoute
+  '/cms/unauthorized': typeof CmsUnauthorizedRoute
+  '/cms/': typeof CmsIndexRoute
   '/_app/projects/$id': typeof AppProjectsIdRoute
   '/_app/projects/': typeof AppProjectsIndexRoute
 }
@@ -118,6 +162,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cms'
     | '/browse'
     | '/create'
     | '/dashboard'
@@ -125,6 +170,10 @@ export interface FileRouteTypes {
     | '/profile'
     | '/settings'
     | '/auth/callback'
+    | '/cms/dashboard'
+    | '/cms/login'
+    | '/cms/unauthorized'
+    | '/cms/'
     | '/projects/$id'
     | '/projects/'
   fileRoutesByTo: FileRoutesByTo
@@ -137,12 +186,17 @@ export interface FileRouteTypes {
     | '/profile'
     | '/settings'
     | '/auth/callback'
+    | '/cms/dashboard'
+    | '/cms/login'
+    | '/cms/unauthorized'
+    | '/cms'
     | '/projects/$id'
     | '/projects'
   id:
     | '__root__'
     | '/'
     | '/_app'
+    | '/cms'
     | '/_app/browse'
     | '/_app/create'
     | '/_app/dashboard'
@@ -150,6 +204,10 @@ export interface FileRouteTypes {
     | '/_app/profile'
     | '/_app/settings'
     | '/auth/callback'
+    | '/cms/dashboard'
+    | '/cms/login'
+    | '/cms/unauthorized'
+    | '/cms/'
     | '/_app/projects/$id'
     | '/_app/projects/'
   fileRoutesById: FileRoutesById
@@ -157,11 +215,19 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  CmsRoute: typeof CmsRouteWithChildren
   AuthCallbackRoute: typeof AuthCallbackRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/cms': {
+      id: '/cms'
+      path: '/cms'
+      fullPath: '/cms'
+      preLoaderRoute: typeof CmsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_app': {
       id: '/_app'
       path: ''
@@ -175,6 +241,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/cms/': {
+      id: '/cms/'
+      path: '/'
+      fullPath: '/cms/'
+      preLoaderRoute: typeof CmsIndexRouteImport
+      parentRoute: typeof CmsRoute
+    }
+    '/cms/unauthorized': {
+      id: '/cms/unauthorized'
+      path: '/unauthorized'
+      fullPath: '/cms/unauthorized'
+      preLoaderRoute: typeof CmsUnauthorizedRouteImport
+      parentRoute: typeof CmsRoute
+    }
+    '/cms/login': {
+      id: '/cms/login'
+      path: '/login'
+      fullPath: '/cms/login'
+      preLoaderRoute: typeof CmsLoginRouteImport
+      parentRoute: typeof CmsRoute
+    }
+    '/cms/dashboard': {
+      id: '/cms/dashboard'
+      path: '/dashboard'
+      fullPath: '/cms/dashboard'
+      preLoaderRoute: typeof CmsDashboardRouteImport
+      parentRoute: typeof CmsRoute
     }
     '/auth/callback': {
       id: '/auth/callback'
@@ -266,9 +360,26 @@ const AppRouteChildren: AppRouteChildren = {
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
+interface CmsRouteChildren {
+  CmsDashboardRoute: typeof CmsDashboardRoute
+  CmsLoginRoute: typeof CmsLoginRoute
+  CmsUnauthorizedRoute: typeof CmsUnauthorizedRoute
+  CmsIndexRoute: typeof CmsIndexRoute
+}
+
+const CmsRouteChildren: CmsRouteChildren = {
+  CmsDashboardRoute: CmsDashboardRoute,
+  CmsLoginRoute: CmsLoginRoute,
+  CmsUnauthorizedRoute: CmsUnauthorizedRoute,
+  CmsIndexRoute: CmsIndexRoute,
+}
+
+const CmsRouteWithChildren = CmsRoute._addFileChildren(CmsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  CmsRoute: CmsRouteWithChildren,
   AuthCallbackRoute: AuthCallbackRoute,
 }
 export const routeTree = rootRouteImport
