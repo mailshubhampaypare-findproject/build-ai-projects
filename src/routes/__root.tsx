@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import type { RouterContext } from "../router";
 import { getUser } from "../lib/auth";
+import { getAdminStatus } from "../lib/admin-auth";
 
 function NotFoundComponent() {
   return (
@@ -76,9 +77,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   beforeLoad: async () => {
-    const user = await getUser();
-    console.log("Root beforeLoad - User:", user?.email ?? "null");
-    return { user };
+    const [user, isAdmin] = await Promise.all([getUser(), getAdminStatus()]);
+    console.log("Root beforeLoad - User:", user?.email ?? "null", "isAdmin:", isAdmin);
+    return { user, isAdmin };
   },
   head: () => ({
     meta: [

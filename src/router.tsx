@@ -6,6 +6,7 @@ import type { User } from "@supabase/supabase-js";
 export interface RouterContext {
   queryClient: QueryClient;
   user: User | null;
+  isAdmin: boolean;
 }
 
 export const getRouter = () => {
@@ -13,7 +14,7 @@ export const getRouter = () => {
 
   const router = createRouter({
     routeTree,
-    context: { queryClient, user: null } as RouterContext,
+    context: { queryClient, user: null, isAdmin: false } as RouterContext,
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
   });
