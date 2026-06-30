@@ -8,9 +8,13 @@ import {
   Download,
   Coins,
   ArrowRight,
+  Heart,
+  History,
+  Lightbulb,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MY_PROJECTS, statusBadgeClasses } from "@/lib/projects-data";
+import { MY_PROJECTS, TEMPLATE_PROJECTS, statusBadgeClasses } from "@/lib/projects-data";
 
 export const Route = createFileRoute("/_app/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — ProjectAI" }] }),
@@ -77,11 +81,80 @@ function Dashboard() {
         />
       </div>
 
+      {/* Saved, Recently Viewed, Recommended */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* Saved Projects */}
+        <section className="rounded-2xl border border-border bg-card shadow-card">
+          <div className="flex items-center justify-between border-b border-border p-5">
+            <h2 className="font-semibold flex items-center gap-2">
+              <Heart className="h-4 w-4 text-rose-500" /> Saved Projects
+            </h2>
+            <Button asChild variant="ghost" size="sm">
+              <Link to="/browse">Explore more</Link>
+            </Button>
+          </div>
+          <div className="p-4 space-y-3">
+            {TEMPLATE_PROJECTS.slice(0, 3).map(p => (
+              <ProjectListItem key={p.id} project={p} />
+            ))}
+          </div>
+        </section>
+
+        {/* Recently Viewed */}
+        <section className="rounded-2xl border border-border bg-card shadow-card">
+          <div className="flex items-center justify-between border-b border-border p-5">
+            <h2 className="font-semibold flex items-center gap-2">
+              <History className="h-4 w-4 text-brand" /> Recently Viewed
+            </h2>
+          </div>
+          <div className="p-4 space-y-3">
+            {TEMPLATE_PROJECTS.slice(3, 6).map(p => (
+              <ProjectListItem key={p.id} project={p} />
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* Recommended for You */}
+      <section className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="font-display text-2xl font-semibold tracking-tight flex items-center gap-2">
+            <Lightbulb className="h-6 w-6 text-amber-500" /> Recommended for You
+          </h2>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {TEMPLATE_PROJECTS.slice(1, 4).map(p => (
+            <article key={p.id} className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-card transition-all hover:-translate-y-1">
+              <div className="flex items-start justify-between">
+                <div className="size-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center font-bold">
+                  {p.name[0]}
+                </div>
+                <div className="flex items-center gap-1 text-xs font-medium text-amber-500">
+                  <Star className="h-3 w-3 fill-current" /> {p.rating}
+                </div>
+              </div>
+              <h3 className="mt-4 font-semibold group-hover:text-brand transition-colors">{p.name}</h3>
+              <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{p.description}</p>
+              <div className="mt-4 flex flex-wrap gap-1.5">
+                {p.tech.map(t => (
+                  <span key={t} className="rounded-md bg-muted px-2 py-0.5 text-[10px] font-medium">{t}</span>
+                ))}
+              </div>
+              <Button asChild size="sm" variant="ghost" className="mt-4 w-full justify-between group-hover:bg-brand group-hover:text-brand-foreground">
+                <Link to="/projects/$id" params={{ id: p.id }}>
+                  View Project <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </Button>
+            </article>
+          ))}
+        </div>
+      </section>
+
       {/* Recent + activity */}
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2 rounded-2xl border border-border bg-card shadow-card">
           <div className="flex items-center justify-between border-b border-border p-5">
-            <h2 className="font-semibold">Recent Projects</h2>
+            <h2 className="font-semibold">Active Projects</h2>
             <Button asChild variant="ghost" size="sm">
               <Link to="/projects">
                 View all <ArrowRight className="ml-1 h-3.5 w-3.5" />
@@ -136,6 +209,25 @@ function Dashboard() {
         </div>
       </div>
     </div>
+  );
+}
+
+function ProjectListItem({ project }: { project: (typeof TEMPLATE_PROJECTS)[0] }) {
+  return (
+    <Link
+      to="/projects/$id"
+      params={{ id: project.id }}
+      className="flex items-center gap-4 p-3 rounded-xl border border-transparent hover:border-border hover:bg-muted/30 transition-all"
+    >
+      <div className="size-10 shrink-0 rounded-lg bg-muted flex items-center justify-center font-bold text-xs">
+        {project.name[0]}
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="text-sm font-semibold truncate">{project.name}</p>
+        <p className="text-[10px] text-muted-foreground truncate">{project.tech.join(" · ")}</p>
+      </div>
+      <ArrowRight className="h-4 w-4 text-muted-foreground/30" />
+    </Link>
   );
 }
 
